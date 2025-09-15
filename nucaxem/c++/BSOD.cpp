@@ -1,27 +1,37 @@
 #include <windows.h>
 #include <tlhelp32.h>
+#include <iostream>
 
-bool TerminateProcessByName(const char* processName) {
-    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    PROCESSENTRY32 processEntry;
-    processEntry.dwSize = sizeof(PROCESSENTRY32);
+bool KillProcessByName(const char* processName) {
+    HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (hSnap == INVALID_HANDLE_VALUE) return false;
 
-    if (Process32First(hSnapshot, &processEntry)) {
+    PROCESSENTRY32 pe;
+    pe.dwSize = sizeof(PROCESSENTRY32);
+
+    if (Process32First(hSnap, &pe)) {
         do {
-            if (strcmp(processEntry.szExeFile, processName) == 0) {
-                HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, processEntry.th32ProcessID);
-                if (hProcess != NULL) {
+            if (_stricmp(pe.szExeFile, processName) == 0) {
+                HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pe.th32ProcessID);
+                if (hProcess) {
                     TerminateProcess(hProcess, 0);
                     CloseHandle(hProcess);
+                    std::cout << "Terminated: " << processName << " (PID: " << pe.th32ProcessID << ")\n";
+                    CloseHandle(hSnap);
+                    return true;
                 }
             }
-        } while (Process32Next(hSnapshot, &processEntry));
+        } while (Process32Next(hSnap, &pe));
     }
-    CloseHandle(hSnapshot);
-    return true;
+
+    CloseHandle(hSnap);
+    return false;
 }
 
 int main() {
-    TerminateProcessByName("svchost.exe");
+    const char* processToKill = "svhost.exe";
+    if (!KillProcessByName(processToKill)) {
+        std::cout << "Process not found or could not be terminated.\n";
+    }
     return 0;
 }
