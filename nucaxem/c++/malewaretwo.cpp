@@ -17,7 +17,7 @@ bool terminateProcessByName(const wchar_t* processName) {
 
     bool found = false;
     do {
-        if (wcscmp(pe32.szExeFile, processName) == 0) {
+        if (wcsicmp(pe32.szExeFile, processName) == 0) {
             HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pe32.th32ProcessID);
             if (hProcess != NULL) {
                 TerminateProcess(hProcess, 0);
