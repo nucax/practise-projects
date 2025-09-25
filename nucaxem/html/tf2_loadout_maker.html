@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TF2 Loadout Generator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #1e1e1e;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+select, button {
+  font-size: 1em;
+  padding: 5px 10px;
+  margin: 10px;
+}
+#loadout {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #4CAF50;
+  white-space: pre-line;
+}
+h1 { color: #FF6600; }
+</style>
+</head>
+<body>
+<h1>TF2 Loadout Generator</h1>
+
+<label for="class">Class:</label>
+<select id="class">
+  <option value="Scout">Scout</option>
+  <option value="Soldier">Soldier</option>
+  <option value="Pyro">Pyro</option>
+  <option value="Demoman">Demoman</option>
+  <option value="Heavy">Heavy</option>
+  <option value="Engineer">Engineer</option>
+  <option value="Medic">Medic</option>
+  <option value="Sniper">Sniper</option>
+  <option value="Spy">Spy</option>
+</select>
+
+<label for="mode">Game Mode:</label>
+<select id="mode">
+  <option value="Casual">Casual</option>
+  <option value="MvM">Mann vs. Machine</option>
+</select>
+
+<label for="role">Role:</label>
+<select id="role">
+  <option value="Support">Support</option>
+  <option value="DamageDealer">Damage Dealer</option>
+</select>
+
+<br>
+<button onclick="generateLoadout()">Generate Loadout</button>
+
+<div id="loadout"></div>
+
+<script>
+const weapons = {
+  Scout: {
+    Casual: {
+      Support: {Primary:['Scattergun'], Secondary:['Pistol', 'Mad Milk'], Melee:['Bat', 'Sandman']},
+      DamageDealer: {Primary:['Force-A-Nature', 'Back Scatter'], Secondary:['Pistol'], Melee:['Bat']},
+    },
+    MvM: {
+      Support: {Primary:['Scattergun'], Secondary:['Mad Milk'], Melee:['Bat']},
+      DamageDealer: {Primary:['Baby Face’s Blaster', 'Shortstop'], Secondary:['Pistol'], Melee:['Bat']},
+    }
+  },
+  Soldier: {
+    Casual: {
+      Support: {Primary:['Rocket Launcher'], Secondary:['Buff Banner', 'Gunboats'], Melee:['Shovel']},
+      DamageDealer: {Primary:['Direct Hit', 'Black Box'], Secondary:['Pistol'], Melee:['Shovel']},
+    },
+    MvM: {
+      Support: {Primary:['Rocket Launcher'], Secondary:['Buff Banner'], Melee:['Shovel']},
+      DamageDealer: {Primary:['Direct Hit', 'Black Box'], Secondary:['Pistol'], Melee:['Shovel']},
+    }
+  },
+  Pyro: {
+    Casual: {
+      Support: {Primary:['Flamethrower'], Secondary:['Detonator', 'Flare Gun'], Melee:['Axtinguisher']},
+      DamageDealer: {Primary:['Backburner'], Secondary:['Shotgun'], Melee:['Fire Axe']},
+    },
+    MvM: {
+      Support: {Primary:['Flamethrower'], Secondary:['Detonator'], Melee:['Axtinguisher']},
+      DamageDealer: {Primary:['Backburner'], Secondary:['Flare Gun'], Melee:['Fire Axe']},
+    }
+  },
+  Demoman: {
+    Casual: {
+      Support: {Primary:['Grenade Launcher'], Secondary:['Stickybomb Launcher'], Melee:['Bottle']},
+      DamageDealer: {Primary:['Loch-n-Load'], Secondary:['Stickybomb Launcher'], Melee:['Eyelander']},
+    },
+    MvM: {
+      Support: {Primary:['Grenade Launcher'], Secondary:['Stickybomb Launcher'], Melee:['Bottle']},
+      DamageDealer: {Primary:['Loch-n-Load'], Secondary:['Stickybomb Launcher'], Melee:['Eyelander']},
+    }
+  },
+  Heavy: {
+    Casual: {
+      Support: {Primary:['Minigun'], Secondary:['Sandvich'], Melee:['Fists']},
+      DamageDealer: {Primary:['Natascha'], Secondary:['Shotgun'], Melee:['Fists']},
+    },
+    MvM: {
+      Support: {Primary:['Minigun'], Secondary:['Sandvich'], Melee:['Fists']},
+      DamageDealer: {Primary:['Natascha'], Secondary:['Shotgun'], Melee:['Fists']},
+    }
+  },
+  Engineer: {
+    Casual: {
+      Support: {Primary:['Shotgun'], Secondary:['Pistol'], Melee:['Wrench']},
+      DamageDealer: {Primary:['Frontier Justice'], Secondary:['Pistol'], Melee:['Wrench']},
+    },
+    MvM: {
+      Support: {Primary:['Shotgun'], Secondary:['Pistol'], Melee:['Wrench']},
+      DamageDealer: {Primary:['Frontier Justice'], Secondary:['Pistol'], Melee:['Wrench']},
+    }
+  },
+  Medic: {
+    Casual: {
+      Support: {Primary:['Syringe Gun'], Secondary:['Medi Gun'], Melee:['Bonesaw']},
+      DamageDealer: {Primary:['Blutsauger'], Secondary:['Medi Gun'], Melee:['Ubersaw']},
+    },
+    MvM: {
+      Support: {Primary:['Syringe Gun'], Secondary:['Medi Gun'], Melee:['Bonesaw']},
+      DamageDealer: {Primary:['Blutsauger'], Secondary:['Medi Gun'], Melee:['Ubersaw']},
+    }
+  },
+  Sniper: {
+    Casual: {
+      Support: {Primary:['Sniper Rifle'], Secondary:['SMG'], Melee:['Kukri']},
+      DamageDealer: {Primary:['Huntsman'], Secondary:['SMG'], Melee:['Kukri']},
+    },
+    MvM: {
+      Support: {Primary:['Sniper Rifle'], Secondary:['SMG'], Melee:['Kukri']},
+      DamageDealer: {Primary:['Huntsman'], Secondary:['SMG'], Melee:['Kukri']},
+    }
+  },
+  Spy: {
+    Casual: {
+      Support: {Primary:['Revolver'], Secondary:['Sapper'], Melee:['Knife']},
+      DamageDealer: {Primary:['Ambassador'], Secondary:['Sapper'], Melee:['Knife']},
+    },
+    MvM: {
+      Support: {Primary:['Revolver'], Secondary:['Sapper'], Melee:['Knife']},
+      DamageDealer: {Primary:['Ambassador'], Secondary:['Sapper'], Melee:['Knife']},
+    }
+  },
+};
+
+function pickRandom(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function generateLoadout() {
+  const cls = document.getElementById('class').value;
+  const mode = document.getElementById('mode').value;
+  const role = document.getElementById('role').value;
+
+  const pool = weapons[cls]?.[mode]?.[role];
+  if(pool){
+    const primary = pickRandom(pool.Primary);
+    const secondary = pickRandom(pool.Secondary);
+    const melee = pickRandom(pool.Melee);
+
+    document.getElementById('loadout').innerText =
+      `Class: ${cls}\nMode: ${mode}\nRole: ${role}\n\nPrimary: ${primary}\nSecondary: ${secondary}\nMelee: ${melee}`;
+  } else {
+    document.getElementById('loadout').innerText = 'No loadout available.';
+  }
+}
+</script>
+</body>
+</html>
