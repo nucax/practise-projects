@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Click the Box Game</title>
+  <style>
+    body {
+      background: #222;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 { margin: 20px; }
+    #game-area {
+      position: relative;
+      width: 100vw;
+      height: 80vh;
+      border: 3px solid white;
+      overflow: hidden;
+      margin: auto;
+      background: #333;
+    }
+    #box {
+      width: 60px;
+      height: 60px;
+      background: #4CAF50;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      cursor: pointer;
+      transition: 0.2s;
+      border-radius: 8px;
+    }
+    #score, #timer {
+      font-size: 1.2em;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 Click the Box!</h1>
+  <p id="score">Score: 0</p>
+  <p id="timer">Time: 15</p>
+
+  <div id="game-area">
+    <div id="box"></div>
+  </div>
+
+  <script>
+    const box = document.getElementById("box");
+    const gameArea = document.getElementById("game-area");
+    const scoreDisplay = document.getElementById("score");
+    const timerDisplay = document.getElementById("timer");
+
+    let score = 0;
+    let time = 15;
+
+    // Move the box to a random position
+    function moveBox() {
+      const maxX = gameArea.clientWidth - box.clientWidth;
+      const maxY = gameArea.clientHeight - box.clientHeight;
+      box.style.left = Math.random() * maxX + "px";
+      box.style.top = Math.random() * maxY + "px";
+    }
+
+    box.addEventListener("click", () => {
+      score++;
+      scoreDisplay.textContent = "Score: " + score;
+      moveBox();
+    });
+
+    // Countdown timer
+    const timer = setInterval(() => {
+      time--;
+      timerDisplay.textContent = "Time: " + time;
+      if (time <= 0) {
+        clearInterval(timer);
+        box.style.display = "none";
+        timerDisplay.textContent = "⏳ Game Over!";
+        alert("Game Over! Your score: " + score);
+      }
+    }, 1000);
+
+    moveBox(); // Start with a random position
+  </script>
+
+</body>
+</html>
