@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dodge the Blocks</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      overflow: hidden;
+      text-align: center;
+    }
+    #game-area {
+      position: relative;
+      width: 100vw;
+      height: 80vh;
+      background: #222;
+      margin: auto;
+      border: 3px solid #fff;
+      overflow: hidden;
+    }
+    #player {
+      width: 50px;
+      height: 50px;
+      background: #3498db;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 8px;
+    }
+    .block {
+      width: 50px;
+      height: 50px;
+      background: #e74c3c;
+      position: absolute;
+      top: 0;
+      border-radius: 8px;
+    }
+    #score {
+      font-size: 1.2em;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dodge the Falling Blocks!</h1>
+  <p id="score">Score: 0</p>
+  <div id="game-area">
+    <div id="player"></div>
+  </div>
+
+  <script>
+    const player = document.getElementById("player");
+    const gameArea = document.getElementById("game-area");
+    const scoreDisplay = document.getElementById("score");
+
+    let playerX = gameArea.clientWidth / 2 - 25;
+    let score = 0;
+    let gameOver = false;
+
+    // Move player with arrow keys
+    document.addEventListener("keydown", e => {
+      const step = 20;
+      if(e.key === "ArrowLeft") playerX -= step;
+      if(e.key === "ArrowRight") playerX += step;
+      if(playerX < 0) playerX = 0;
+      if(playerX > gameArea.clientWidth - 50) playerX = gameArea.clientWidth - 50;
+      player.style.left = playerX + "px";
+    });
+
+    // Create falling blocks
+    function createBlock() {
+      if(gameOver) return;
+      const block = document.createElement("div");
+      block.classList.add("block");
+      block.style.left = Math.random() * (gameArea.clientWidth - 50) + "px";
+      gameArea.appendChild(block);
+
+      let blockY = 0;
+      const speed = 2 + Math.random() * 3;
+
+      function moveBlock() {
+        if(gameOver) return;
+        blockY += speed;
+        block.style.top = blockY + "px";
+
+        // Collision detection
+        const playerRect = player.getBoundingClientRect();
+        const blockRect = block.getBoundingClientRect();
+        if(!(playerRect.right < blockRect.left || playerRect.left > blockRect.right ||
+             playerRect.bottom < blockRect.top || playerRect.top > blockRect.bottom)) {
+          gameOver = true;
+          alert("Game Over! Score: " + score);
+        }
+
+        if(blockY < gameArea.clientHeight) {
+          requestAnimationFrame(moveBlock);
+        } else {
+          block.remove();
+        }
+      }
+      moveBlock();
+    }
+
+    // Increase score every second
+    setInterval(() => {
+      if(!gameOver) {
+        score++;
+        scoreDisplay.textContent = "Score: " + score;
+      }
+    }, 1000);
+
+    // Create blocks every 800ms
+    setInterval(createBlock, 800);
+  </script>
+</body>
+</html>
