@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "fovslider",
+  "version": "1.0.0",
+  "name": "FOV Slider",
+  "description": "Press '.' to open a menu with an FOV slider (1–200).",
+  "authors": ["Louis"],
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.nucax.fovslider.FovSliderMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "minecraft": "1.21.8",
+    "fabric-api": "*"
+  }
+}
