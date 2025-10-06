@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Device Info Viewer</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      margin: 2rem;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .info {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 700px;
+    }
+    dt {
+      font-weight: 600;
+      margin-top: 0.8rem;
+    }
+    dd {
+      margin-left: 1rem;
+      color: #444;
+      word-break: break-all;
+    }
+    .small {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Device & Browser Information</h1>
+  <dl class="info" id="infoList"></dl>
+
+  <script>
+    const infoList = document.getElementById('infoList');
+    const addInfo = (label, value) => {
+      const dt = document.createElement('dt');
+      dt.textContent = label;
+      const dd = document.createElement('dd');
+      dd.textContent = value ?? 'Not available';
+      infoList.append(dt, dd);
+    };
+
+    // Basic info
+    addInfo('User Agent', navigator.userAgent);
+    addInfo('Platform', navigator.platform);
+    addInfo('Language', navigator.language);
+    addInfo('Time Zone', Intl.DateTimeFormat().resolvedOptions().timeZone);
+    addInfo('Cookies Enabled', navigator.cookieEnabled);
+    addInfo('Online', navigator.onLine);
+
+    // Hardware
+    addInfo('Logical CPU Cores', navigator.hardwareConcurrency ?? 'N/A');
+    addInfo('Approx. RAM (GB)', navigator.deviceMemory ?? 'N/A');
+    addInfo('Touch Support', 'ontouchstart' in window ? 'Yes' : 'No');
+    addInfo('Screen Resolution', `${screen.width}×${screen.height}`);
+    addInfo('Pixel Ratio', window.devicePixelRatio);
+
+    // Connection info
+    if (navigator.connection) {
+      addInfo('Connection Type', navigator.connection.effectiveType);
+      addInfo('Downlink (Mbps)', navigator.connection.downlink);
+      addInfo('RTT (ms)', navigator.connection.rtt);
+    }
+
+    // Battery (if available)
+    if (navigator.getBattery) {
+      navigator.getBattery().then(b => {
+        addInfo('Battery Level', Math.round(b.level * 100) + '%');
+        addInfo('Charging', b.charging ? 'Yes' : 'No');
+      });
+    }
+
+    // Geolocation (asks permission)
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          addInfo('Latitude', pos.coords.latitude);
+          addInfo('Longitude', pos.coords.longitude);
+          addInfo('Accuracy (m)', pos.coords.accuracy);
+        },
+        err => addInfo('Geolocation', 'Permission denied or unavailable')
+      );
+    }
+
+    // f idk or GPU fingerprinting)
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      addInfo('GPU Renderer', renderer);
+    } catch {
+      addInfo('GPU Renderer', 'Unavailable');
+    }
+
+    // Referrer
+    addInfo('Referrer', document.referrer || 'None');
+
+    // Page info
+    addInfo('Page URL', location.href);
+    addInfo('Document Title', document.title);
+  </script>
+</body>
+</html>
