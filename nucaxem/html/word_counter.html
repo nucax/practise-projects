@@ -22,6 +22,22 @@
     footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
     .small{font-size:12px;color:var(--muted)}
 
+    button.paste-btn {
+      background: var(--accent);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: opacity 0.2s ease;
+    }
+
+    button.paste-btn:hover {
+      opacity: 0.85;
+    }
+
     @media (max-width:520px){.stat{min-width:110px}}
   </style>
 </head>
@@ -30,7 +46,9 @@
     <h1>Live Wortzähler</h1>
     <p class="lead">Gib Text in das Feld ein..</p>
 
-    <textarea id="text" placeholder=Paste den Text hier rein.."></textarea>
+    <button class="paste-btn" id="pasteBtn">📋 Text einfügen</button>
+
+    <textarea id="text" placeholder="Paste den Text hier rein..."></textarea>
 
     <div class="stats" aria-live="polite">
       <div class="stat">
@@ -63,21 +81,29 @@
     const charsEl = document.getElementById('chars');
     const charsNoSpacesEl = document.getElementById('charsNoSpaces');
     const minutesEl = document.getElementById('minutes');
+    const pasteBtn = document.getElementById('pasteBtn');
 
-    // Zählt Wörter: Treffer für Unicode-Wortbestandteile (Buchstaben/Zahlen), erlaubt interne Apostrophe/Bindestriche.
+    async function pasteText() {
+      try {
+        const text = await navigator.clipboard.readText();
+        textarea.value = text;
+        update();
+      } catch (err) {
+        alert('Konnte nicht auf die Zwischenablage zugreifen. Erlaube Clipboard-Zugriff im Browser.');
+      }
+    }
+
+    pasteBtn.addEventListener('click', pasteText);
+
     function countWords(text) {
       if (!text) return 0;
-      // Entferne führende/trailing whitespace
       const trimmed = text.trim();
       if (trimmed === '') return 0;
-      // Unicode-freundliche Wort-RegEx (ES2018+): verwendet \\p{L} und \\p{N}
       try {
         const matches = trimmed.match(/\p{L}[\p{L}\p{N}'’\-]*/gu);
         return matches ? matches.length : 0;
       } catch (e) {
-        // Fallback für Browser ohne Unicode-RegEx-Unterstützung
         const parts = trimmed.split(/\s+/).filter(Boolean);
-        // Filtere reine Satzzeichen
         return parts.filter(p => /[\w\p{L}\p{N}]/u.test(p)).length;
       }
     }
@@ -95,10 +121,7 @@
       minutesEl.textContent = readMins.toString();
     }
 
-    // Live-Updates
     textarea.addEventListener('input', update);
-
-    // Initial
     update();
   </script>
 </body>
