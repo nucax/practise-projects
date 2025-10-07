@@ -28,9 +28,9 @@
 <body>
   <main class="card">
     <h1>Live Wortzähler</h1>
-    <p class="lead">Gib Text in das Feld ein — die Wortanzahl wird sofort berechnet.</p>
+    <p class="lead">Gib Text in das Feld ein..</p>
 
-    <textarea id="text" placeholder="Tippe hier oder füge Text ein..."></textarea>
+    <textarea id="text" placeholder=Paste den Text hier rein.."></textarea>
 
     <div class="stats" aria-live="polite">
       <div class="stat">
@@ -53,7 +53,7 @@
 
     <footer>
       <div class="small">Unterstützt Unicode-Wörter und Zahlen.</div>
-      <div class="small">Benötigst du eine andere Zählweise? Sag Bescheid.</div>
+      <div class="small">https://github.com/nucax</div>
     </footer>
   </main>
 
@@ -87,7 +87,7 @@
       const words = countWords(text);
       const chars = text.length;
       const charsNoSpaces = text.replace(/\s+/g, '').length;
-      const readMins = Math.max(0, Math.round(words / 200)); // Annahme: 200 Wörter/Minute
+      const readMins = Math.max(0, Math.round(words / 200));
 
       wordsEl.textContent = words.toLocaleString();
       charsEl.textContent = chars.toLocaleString();
