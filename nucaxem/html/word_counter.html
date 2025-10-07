@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Live Wortzähler</title>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--accent:#7c3aed;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;background:linear-gradient(180deg,#071029 0%, #07102f 100%);color:#e6eef8;display:flex;align-items:center;justify-content:center;height:100vh;padding:24px}
+    .card{width:100%;max-width:900px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:24px;border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,0.6);}
+    h1{margin:0 0 8px;font-size:20px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+
+    textarea{width:100%;min-height:220px;padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit;font-size:16px;resize:vertical}
+
+    .stats{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+    .stat{background:rgba(255,255,255,0.02);padding:10px 14px;border-radius:10px;min-width:130px}
+    .stat .num{font-weight:700;font-size:18px}
+    .stat .label{font-size:12px;color:var(--muted)}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+    .small{font-size:12px;color:var(--muted)}
+
+    @media (max-width:520px){.stat{min-width:110px}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Live Wortzähler</h1>
+    <p class="lead">Gib Text in das Feld ein — die Wortanzahl wird sofort berechnet.</p>
+
+    <textarea id="text" placeholder="Tippe hier oder füge Text ein..."></textarea>
+
+    <div class="stats" aria-live="polite">
+      <div class="stat">
+        <div class="num" id="words">0</div>
+        <div class="label">Wörter</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="chars">0</div>
+        <div class="label">Zeichen (inkl. Leerzeichen)</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="charsNoSpaces">0</div>
+        <div class="label">Zeichen (ohne Leerzeichen)</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="minutes">0</div>
+        <div class="label">Geschätzte Lesezeit (Min.)</div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="small">Unterstützt Unicode-Wörter und Zahlen.</div>
+      <div class="small">Benötigst du eine andere Zählweise? Sag Bescheid.</div>
+    </footer>
+  </main>
+
+  <script>
+    const textarea = document.getElementById('text');
+    const wordsEl = document.getElementById('words');
+    const charsEl = document.getElementById('chars');
+    const charsNoSpacesEl = document.getElementById('charsNoSpaces');
+    const minutesEl = document.getElementById('minutes');
+
+    // Zählt Wörter: Treffer für Unicode-Wortbestandteile (Buchstaben/Zahlen), erlaubt interne Apostrophe/Bindestriche.
+    function countWords(text) {
+      if (!text) return 0;
+      // Entferne führende/trailing whitespace
+      const trimmed = text.trim();
+      if (trimmed === '') return 0;
+      // Unicode-freundliche Wort-RegEx (ES2018+): verwendet \\p{L} und \\p{N}
+      try {
+        const matches = trimmed.match(/\p{L}[\p{L}\p{N}'’\-]*/gu);
+        return matches ? matches.length : 0;
+      } catch (e) {
+        // Fallback für Browser ohne Unicode-RegEx-Unterstützung
+        const parts = trimmed.split(/\s+/).filter(Boolean);
+        // Filtere reine Satzzeichen
+        return parts.filter(p => /[\w\p{L}\p{N}]/u.test(p)).length;
+      }
+    }
+
+    function update() {
+      const text = textarea.value;
+      const words = countWords(text);
+      const chars = text.length;
+      const charsNoSpaces = text.replace(/\s+/g, '').length;
+      const readMins = Math.max(0, Math.round(words / 200)); // Annahme: 200 Wörter/Minute
+
+      wordsEl.textContent = words.toLocaleString();
+      charsEl.textContent = chars.toLocaleString();
+      charsNoSpacesEl.textContent = charsNoSpaces.toLocaleString();
+      minutesEl.textContent = readMins.toString();
+    }
+
+    // Live-Updates
+    textarea.addEventListener('input', update);
+
+    // Initial
+    update();
+  </script>
+</body>
+</html>
