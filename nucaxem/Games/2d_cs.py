@@ -21,7 +21,13 @@ Run: python topdown_cs_pygame.py Requires: Python 3.8+, pygame Install pygame: p
 
 Save file: savegame.json """
 
-import pygame import random import math import json import os import sys from collections import deque
+import pygame 
+import random 
+import math 
+import json 
+import os 
+import sys 
+from collections import deque
 
 ---------- CONFIG ----------
 
