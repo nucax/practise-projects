@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Loadstring Creator</title>
+  <style>
+    :root{--bg:#0f1115;--card:#13151a;--accent:#7bd389;--muted:#9aa3b2;--glass: rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#e6eef6;background:linear-gradient(180deg,#071023 0%, #081222 100%)}
+    .wrap{max-width:920px;margin:36px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+    h1{margin:0 0 8px;font-size:22px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input[type="text"], textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:var(--glass);color:inherit;outline:none}
+    button{background:var(--accent);border:none;color:#081022;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+    .small{font-size:13px;color:var(--muted)}
+    .output{white-space:pre-wrap;background:#06070a;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;color:#bfeec2}
+    .row{display:flex;gap:8px;align-items:center}
+    .footer{margin-top:14px;color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:8px;margin-top:10px}
+    .copy-ok{background:linear-gradient(90deg,#2ea67b,#6ce0a3);color:#032018}
+    @media (max-width:880px){.grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Loadstring Creator</h1>
+    <p class="lead">Paste a script URL (GitHub, Gist, raw URL) and generate a loadstring wrapper you can copy or download.</p>
+
+    <div class="grid">
+      <div class="card">
+        <label for="url">Script URL</label>
+        <input id="url" type="text" placeholder="https://raw.githubusercontent.com/username/repo/branch/file.lua" />
+
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <select id="format" aria-label="format">
+            <option value='loadstring(game:HttpGet("{URL}"))()'>loadstring(game:HttpGet("{URL}"))()</option>
+            <option value='loadstring(game:HttpGetAsync("{URL}"))()'>loadstring(game:HttpGetAsync("{URL}"))()</option>
+            <option value='loadstring(game:HttpGet("{URL}", true))()'>loadstring(game:HttpGet("{URL}", true))()</option>
+            <option value='local r = http.request({Url = "{URL}"}); loadstring(r)()'>http.request wrapper</option>
+          </select>
+          <button id="generate">Generate</button>
+        </div>
+
+        <div style="margin-top:12px;">
+          <label class="small">Options</label>
+          <div class="row" style="margin-top:6px;">
+            <input type="checkbox" id="normalize-github" checked />
+            <label for="normalize-github" class="small" style="margin-left:6px;">Normalize GitHub URLs to raw.githubusercontent.com</label>
+          </div>
+          <div class="row" style="margin-top:8px;">
+            <input type="checkbox" id="minify-space" />
+            <label for="minify-space" class="small" style="margin-left:6px;">Minify output (remove newlines)</label>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <label class="small">Generated</label>
+          <div id="output" class="output">your generated loadstring will appear here</div>
+
+          <div class="actions">
+            <button id="copy">Copy</button>
+            <button id="download">Download .lua</button>
+            <button id="open">Open as bookmarklet</button>
+          </div>
+        </div>
+
+        <div class="footer">
+          Tip: you can paste normal GitHub file URLs and the tool will try to convert them to a raw URL (e.g. github.com/user/repo/blob/main/file.lua → raw.githubusercontent.com/user/repo/main/file.lua). Use responsibly on your own/allowed targets.
+        </div>
+      </div>
+
+      <div class="card">
+        <label class="small">Preview / Quick formats</label>
+        <div style="margin-top:8px;">
+          <button id="fmt1" style="width:100%;margin-bottom:8px">Generate default loadstring(...)()</button>
+          <button id="fmt2" style="width:100%;margin-bottom:8px">Generate HttpGetAsync</button>
+          <button id="fmt3" style="width:100%;">Convert GitHub → raw URL</button>
+        </div>
+
+        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
+
+        <label class="small">Examples</label>
+        <div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:13px;color:#b8cbd9;">
+          https://github.com/nucax/KuromiX/blob/main/maingui.lua<br>
+          https://raw.githubusercontent.com/nucax/KuromiX/main/maingui.lua<br>
+          https://gist.github.com/username/abcdef1234567890/raw/script.lua
+        </div>
+
+        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
+
+        <label class="small">Security reminder</label>
+        <p class="small" style="margin-top:6px;color:var(--muted)">This generator simply produces wrapper strings. Executing remote code can be dangerous. Only load scripts you trust and have permission to use.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const urlIn = document.getElementById('url');
+  const out = document.getElementById('output');
+  const genBtn = document.getElementById('generate');
+  const copyBtn = document.getElementById('copy');
+  const downloadBtn = document.getElementById('download');
+  const formatSel = document.getElementById('format');
+  const normalizeChk = document.getElementById('normalize-github');
+  const minifyChk = document.getElementById('minify-space');
+  const openBtn = document.getElementById('open');
+
+  function normalizeGithubUrl(u){
+    if(!u) return u;
+    try{
+      const parsed = new URL(u);
+      // GitHub blob -> raw conversion
+      if(parsed.hostname.match(/(^|\\.)github\\.com$/i)){
+        // path example: /user/repo/blob/branch/path/file.lua
+        const parts = parsed.pathname.split('/').filter(Boolean);
+        const blobIndex = parts.indexOf('blob');
+        if(blobIndex !== -1 && parts.length > blobIndex + 2){
+          const user = parts[0], repo = parts[1], branch = parts[blobIndex+1];
+          const filePath = parts.slice(blobIndex+2).join('/');
+          return `https://raw.githubusercontent.com/${user}/${repo}/${branch}/${filePath}`;
+        }
+        // no blob -> maybe raw already or tree; also handle 'raw.githubusercontent' typed in
+      }
+      // Gist raw links (gist.github.com/<user>/<id>/raw/...) often already raw
+      if(parsed.hostname.match(/(^|\\.)gist\\.github\\.com$/i) && parsed.pathname.includes('/raw')){
+        return u;
+      }
+      // raw.githubusercontent direct or other raw hosts - return unchanged
+      return u;
+    }catch(e){
+      return u;
+    }
+  }
+
+  function sanitizeUrl(u){
+    if(!u) return '';
+    // trim whitespace and remove surrounding quotes
+    u = u.trim().replace(/^["']|["']$/g,'');
+    // try normalization for common GitHub patterns like '.../refs/heads/main/...' (convert to simpler raw path)
+    // e.g. https://raw.githubusercontent.com/nucax/KuromiX/refs/heads/main/maingui.lua -> -> https://raw.githubusercontent.com/nucax/KuromiX/main/maingui.lua
+    u = u.replace('/refs/heads/','/');
+    return u;
+  }
+
+  function generate(){
+    let u = urlIn.value || '';
+    u = sanitizeUrl(u);
+    if(normalizeChk.checked){
+      u = normalizeGithubUrl(u);
+    }
+    if(!u){
+      out.textContent = 'Please paste a script URL first.';
+      return;
+    }
+    // Basic validation
+    try {
+      new URL(u);
+    } catch(e) {
+      out.textContent = 'Invalid URL. Please provide a full URL (including https://).';
+      return;
+    }
+
+    const fmt = formatSel.value;
+    const escaped = u.replace(/"/g, '\\"');
+    let result = fmt.replace('{URL}', escaped);
+    if(minifyChk.checked){
+      result = result.replace(/\\s+/g,' ');
+    }
+    out.textContent = result;
+  }
+
+  genBtn.addEventListener('click', generate);
+  formatSel.addEventListener('change', generate);
+  normalizeChk.addEventListener('change', generate);
+  minifyChk.addEventListener('change', generate);
+
+  copyBtn.addEventListener('click', () => {
+    const text = out.textContent;
+    if(!text) return;
+    navigator.clipboard?.writeText(text).then(()=> {
+      copyBtn.textContent = 'Copied!';
+      copyBtn.classList.add('copy-ok');
+      setTimeout(()=>{ copyBtn.textContent='Copy'; copyBtn.classList.remove('copy-ok'); }, 1500);
+    }).catch(()=> {
+      alert('Unable to copy. Select and copy manually.');
+    });
+  });
+
+  downloadBtn.addEventListener('click', () => {
+    const text = out.textContent;
+    if(!text) return;
+    const blob = new Blob([text], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'loadstring.lua';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  // quick format buttons:
+  document.getElementById('fmt1').addEventListener('click', () => {
+    formatSel.value = 'loadstring(game:HttpGet("{URL}"))()';
+    generate();
+  });
+  document.getElementById('fmt2').addEventListener('click', () => {
+    formatSel.value = 'loadstring(game:HttpGetAsync("{URL}"))()';
+    generate();
+  });
+  document.getElementById('fmt3').addEventListener('click', () => {
+    urlIn.value = normalizeGithubUrl(urlIn.value || urlIn.placeholder) || urlIn.value;
+    generate();
+  });
+
+  // make bookmarklet: open new tab that runs the generated loadstring in Roblox (not executable outside Roblox)
+  openBtn.addEventListener('click', () => {
+    const code = out.textContent;
+    if(!code) return alert('Generate first.');
+    // create a javascript bookmarklet that copies the generated code to clipboard for quick use
+    const js = `javascript:(function(){prompt('Generated loadstring - copy it:', ${JSON.stringify(code)});})();`;
+    window.open(js, '_blank');
+  });
+
+  // generate sample on load
+  urlIn.value = 'https://raw.githubusercontent.com/nucax/KuromiX/refs/heads/main/maingui.lua';
+  generate();
+})();
+</script>
+</body>
+</html>
