@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood Effect</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background-color: #0a0000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff0000;
+    font-family: 'Courier New', monospace;
+    font-size: 2em;
+    text-shadow: 0 0 15px red;
+  }
+
+  .blood-drip {
+    position: absolute;
+    width: 4px;
+    background: linear-gradient(to bottom, #990000, #ff0000);
+    top: -20px;
+    border-radius: 50%;
+    animation: drip 4s infinite ease-in;
+  }
+
+  @keyframes drip {
+    0% { transform: translateY(0); opacity: 1; height: 0; }
+    50% { height: 50px; opacity: 1; }
+    100% { transform: translateY(120vh); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+  <div id="drips"></div>
+  <div>WELCOME TO THE DARK</div>
+
+  <script>
+    const drips = document.getElementById('drips');
+    function createDrip() {
+      const drip = document.createElement('div');
+      drip.classList.add('blood-drip');
+      drip.style.left = Math.random() * window.innerWidth + 'px';
+      drip.style.animationDuration = (2 + Math.random() * 3) + 's';
+      drip.style.width = (2 + Math.random() * 6) + 'px';
+      drips.appendChild(drip);
+      setTimeout(() => drip.remove(), 4000);
+    }
+    setInterval(createDrip, 150);
+  </script>
+</body>
+</html>
