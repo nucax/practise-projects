@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reactive Blood Effect</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a0000 0%, #000 100%);
+    cursor: crosshair;
+  }
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff2222;
+    font-family: 'Courier New', monospace;
+    font-size: 3em;
+    text-shadow: 0 0 25px #ff0000, 0 0 50px #660000;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <canvas id="bloodCanvas"></canvas>
+  <h1>CLICK FOR BLOOD</h1>
+
+  <script>
+    const canvas = document.getElementById('bloodCanvas');
+    const ctx = canvas.getContext('2d');
+    let splatters = [];
+    resizeCanvas();
+
+    window.addEventListener('resize', resizeCanvas);
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    document.addEventListener('click', e => {
+      createSplatter(e.clientX, e.clientY);
+    });
+
+    function createSplatter(x, y) {
+      const count = 15 + Math.random() * 15;
+      for (let i = 0; i < count; i++) {
+        splatters.push({
+          x,
+          y,
+          radius: Math.random() * 12 + 5,
+          vx: (Math.random() - 0.5) * 12,
+          vy: (Math.random() - 0.5) * 12,
+          alpha: 1
+        });
+      }
+    }
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = splatters.length - 1; i >= 0; i--) {
+        const s = splatters[i];
+        s.x += s.vx * 0.5;
+        s.y += s.vy * 0.5;
+        s.alpha -= 0.015;
+        s.radius *= 0.98;
+
+        if (s.alpha <= 0) {
+          splatters.splice(i, 1);
+          continue;
+        }
+
+        ctx.beginPath();
+        const red = Math.floor(100 + Math.random() * 155);
+        ctx.fillStyle = `rgba(${red}, 0, 0, ${s.alpha})`;
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>
