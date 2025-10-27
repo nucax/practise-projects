@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Translator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    textarea, select, button {
+      margin: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+    }
+    button {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Translator lol</h1>
+  <textarea id="input" placeholder="Enter text..."></textarea>
+  <div>
+    <label>Translate to:</label>
+    <select id="lang">
+      <option value="de">German</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+      <option value="it">Italian</option>
+    </select>
+    <button onclick="translate()">Translate</button>
+  </div>
+  <h2>Result:</h2>
+  <p id="output"></p>
+
+  <script>
+    async function translate() {
+      const text = document.getElementById("input").value;
+      const targetLang = document.getElementById("lang").value;
+      const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`);
+      const data = await res.json();
+      document.getElementById("output").innerText = data.responseData.translatedText;
+    }
+  </script>
+</body>
+</html>
