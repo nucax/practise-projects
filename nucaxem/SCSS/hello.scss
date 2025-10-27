@@ -1,0 +1,9 @@
+$message: "Hello, World!";
+
+.hello {
+  color: blue;
+  font-size: 24px;
+  &::after {
+    content: $message;
+  }
+}
