@@ -1,0 +1,4 @@
+HAI 1.2
+I HAS A MSG ITZ "Hello, World!"
+VISIBLE MSG
+KTHXBYE
