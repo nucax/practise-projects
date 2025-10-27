@@ -1,4 +1,4 @@
-![Repo Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=nucax&repo=practise-projects)
+![All Repo Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=nucax&repo=practise-projects&langs_count=100&layout=compact)
 
 # website links
 https://nucax.github.io/practise-projects/nucaxem/html/tf2_loadout_maker.html
