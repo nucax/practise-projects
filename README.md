@@ -1,4 +1,4 @@
-lol
+![Repo Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=USERNAME&repo=REPONAME)
 
 # website links
 https://nucax.github.io/practise-projects/nucaxem/html/tf2_loadout_maker.html
