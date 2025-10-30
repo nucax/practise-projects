@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iOS Version Detector</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+  #result {
+    font-size: 1.5em;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+
+<h1>iOS Version Detector</h1>
+<div id="result">Detecting...</div>
+
+<script>
+function getIOSVersionFromUA(ua = navigator.userAgent) {
+  // Match patterns like "iPhone OS 14_2_1", "CPU OS 15_4 like Mac OS X", etc.
+  const m = ua.match(/(?:iPhone|iPad|iPod).*?OS (\d+)[_.](\d+)?[_.]?(\d+)?|OS (\d+)[_.](\d+)?[_.]?(\d+)?/i);
+  if (!m) return null;
+
+  const major = parseInt(m[1] || m[4], 10);
+  const minor = parseInt(m[2] || m[5] || 0, 10);
+  const patch = parseInt(m[3] || m[6] || 0, 10);
+  return { major, minor, patch, string: `${major}.${minor}.${patch}` };
+}
+
+const resultDiv = document.getElementById('result');
+const iosVersion = getIOSVersionFromUA();
+
+if (iosVersion) {
+  resultDiv.textContent = `iOS Version: ${iosVersion.string}`;
+} else {
+  resultDiv.textContent = "Not iOS";
+}
+</script>
+
+</body>
+</html>
