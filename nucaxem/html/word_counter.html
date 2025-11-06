@@ -16,13 +16,13 @@
 
     .stats{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
     .stat{background:rgba(255,255,255,0.02);padding:10px 14px;border-radius:10px;min-width:130px}
-    .stat .num{font-weight:700;font-size:18px}
+    .stat .num{font-weight:700;font-size:18px;transition: all 0.2s ease;}
     .stat .label{font-size:12px;color:var(--muted)}
 
     footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
     .small{font-size:12px;color:var(--muted)}
 
-    button.paste-btn {
+    button.paste-btn, button.clear-btn {
       background: var(--accent);
       border: none;
       color: white;
@@ -31,14 +31,16 @@
       border-radius: 8px;
       cursor: pointer;
       margin-bottom: 10px;
+      margin-right: 10px;
       transition: opacity 0.2s ease;
     }
 
-    button.paste-btn:hover {
+    button.paste-btn:hover, button.clear-btn:hover {
       opacity: 0.85;
     }
 
     @media (max-width:520px){.stat{min-width:110px}}
+    @media (max-width:520px){textarea{min-height:260px}}
   </style>
 </head>
 <body>
@@ -47,6 +49,7 @@
     <p class="lead">Gib Text in das Feld ein..</p>
 
     <button class="paste-btn" id="pasteBtn">Paste</button>
+    <button class="clear-btn" id="clearBtn">Clear</button>
 
     <textarea id="text" placeholder="Paste den Text hier rein..."></textarea>
 
@@ -82,18 +85,24 @@
     const charsNoSpacesEl = document.getElementById('charsNoSpaces');
     const minutesEl = document.getElementById('minutes');
     const pasteBtn = document.getElementById('pasteBtn');
+    const clearBtn = document.getElementById('clearBtn');
 
     async function pasteText() {
       try {
         const text = await navigator.clipboard.readText();
         textarea.value = text;
         update();
+        textarea.focus();
       } catch (err) {
         alert('Konnte nicht auf die Zwischenablage zugreifen. Erlaube Clipboard-Zugriff im Browser.');
       }
     }
 
-    pasteBtn.addEventListener('click', pasteText);
+    function clearText() {
+      textarea.value = '';
+      update();
+      textarea.focus();
+    }
 
     function countWords(text) {
       if (!text) return 0;
@@ -113,7 +122,7 @@
       const words = countWords(text);
       const chars = text.length;
       const charsNoSpaces = text.replace(/\s+/g, '').length;
-      const readMins = Math.max(0, Math.round(words / 200));
+      const readMins = Math.max(0, (words / 200).toFixed(1));
 
       wordsEl.textContent = words.toLocaleString();
       charsEl.textContent = chars.toLocaleString();
@@ -121,7 +130,11 @@
       minutesEl.textContent = readMins.toString();
     }
 
+    pasteBtn.addEventListener('click', pasteText);
+    clearBtn.addEventListener('click', clearText);
     textarea.addEventListener('input', update);
+    textarea.addEventListener('paste', () => setTimeout(update, 50));
+
     update();
   </script>
 </body>
