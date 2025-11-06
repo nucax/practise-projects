@@ -3,46 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>Nucaxem Tools</title>
-  <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Background and body setup */
     body {
       margin: 0;
       padding: 0;
-      font‑family: Arial, sans‑serif;
-      background: #f5f7fa;
-      color: #333;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
       display: flex;
-      justify‑content: center;
-      align‑items: center;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
-      flex‑direction: column;
+      color: #fff;
+      text-align: center;
     }
+
+    /* Heading */
     h1 {
-      margin‑bottom: 40px;
-      font‑size: 3em;
-      color: #2c3e50;
+      font-size: 3rem;
+      margin-bottom: 50px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     }
+
+    /* Button container */
     .button-container {
       display: flex;
-      gap: 20px;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .tool‐button {
-      padding: 20px 30px;
-      font‑size: 1.2em;
-      text‑decoration: none;
-      color: white;
-      background‑color: #3498db;
+
+    /* Buttons */
+    .tool-button {
+      padding: 20px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
       border: none;
-      border‑radius: 8px;
-      transition: background‑color 0.3s, transform 0.2s;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-    .tool‐button:hover {
-      background‑color: #2980b9;
-      transform: translateY(‑2px);
+
+    /* Hover effect */
+    .tool-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      background: linear-gradient(135deg, #ff9966, #ff5e62);
     }
-    @media (max‑width: 600px) {
+
+    /* Responsive for small screens */
+    @media (max-width: 600px) {
       .button-container {
-        flex‑direction: column;
+        flex-direction: column;
+        gap: 20px;
       }
     }
   </style>
@@ -52,16 +71,16 @@
   <h1>Nucaxem Tools</h1>
 
   <div class="button-container">
-    <a class="tool‐button" href="https://nucax.github.io/practise-projects/nucaxem/html/loadstring_creator.html" target="_blank" rel="noopener">
+    <a class="tool-button" href="https://nucax.github.io/practise-projects/nucaxem/html/loadstring_creator.html" target="_blank" rel="noopener">
       Loadstring Creator
     </a>
 
-    <a class="tool‐button" href="https://nucax.github.io/TF2-loadout-maker-website/" target="_blank" rel="noopener">
+    <a class="tool-button" href="https://nucax.github.io/TF2-loadout-maker-website/" target="_blank" rel="noopener">
       TF2 Loadout Maker
     </a>
 
-    <a class="tool‐button" href="https://nucax.github.io/practise-projects/nucaxem/html/word_counter.html" target="_blank" rel="noopener">
-      Word Counter
+    <a class="tool-button" href="https://nucax.github.io/practise-projects/nucaxem/html/word_counter.html" target="_blank" rel="noopener">
+      Word Counter
     </a>
   </div>
 
