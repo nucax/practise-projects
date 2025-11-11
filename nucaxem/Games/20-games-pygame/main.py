@@ -28,7 +28,7 @@ def main():
         ("Balloon Pop", "balloon_pop.py")
     ]
 
-    print("=== Pygame Classic Games ===")
+    print("Pygame Games")
     for i, (name, _) in enumerate(games, start=1):
         print(f"{i}. {name}")
     choice = input("Enter game number (or 0 to quit): ")
