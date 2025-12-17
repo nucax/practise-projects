@@ -13,3 +13,5 @@ https://nucax.github.io/practise-projects/nucaxem/html/device_information.html
 https://nucax.github.io/practise-projects/nucaxem/html/word_counter.html
 
 https://nucax.github.io/practise-projects/nucaxem/html/loadstring_creator.html
+
+https://nucax.github.io/practise-projects/nucaxem/html/pwa-test/index.html
