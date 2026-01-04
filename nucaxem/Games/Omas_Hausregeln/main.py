@@ -547,11 +547,10 @@ def spiel_starten():
                 outcome = handle_death()
                 if outcome == 'restart':
                     continue
-            # If hidden success:
+            # falls das verstecken richtig geht
             if versteck_res["result"] == "hidden_success":
                 # Hintertür Szene
-                # The document mentions forgetting the bag; treat as possible branch.
-                # Ask user if they remember their bag (makes it interactive)
+                # fragen ob der user die tasche vergessen hat damit es noch interaktiver ist
                 while True:
                     bag_ans = input("Hast du deine Tasche dabei? (ja/nein): ").strip().lower()
                     if bag_ans in ("ja","j"):
@@ -568,13 +567,13 @@ def spiel_starten():
                     kurze_pause(2.0)
                     return
         else:
-            # If key not found (should be covered by death earlier), but safe fallback:
+            # fallback falls ein unerwarteter Ablauf passiert.
             print("Du konntest keinen Schlüssel finden. Die Situation wird gefährlich...")
             outcome = handle_death()
             if outcome == 'restart':
                 continue
 
-        # Falls das Spiel bis hierher ohne Explizites Ende kam, beende / restart main menu
+        # zweiter fallback falls vorher auch kein richtiges ende kam.
         print("Das Abenteuer ist (vorerst) vorbei. Zurück zum Hauptmenü.")
         kurze_pause(1.6)
         return
@@ -587,6 +586,7 @@ def spiel_starten():
 def hauptmenu():
     while True:
         bildschirm_leeren()
+        # ascii art
         print("   ___                  _  _                               _ ")
         print("  / _ \\ _ __  __ _ ___ | || |__ _ _  _ ____ _ ___ __ _ ___| |_ _  ")
         print(" | (_) | '  \\/ _` (_-< | __ / _` | || (_-< '_/ -_) _` / -_) | ' \\ ")
@@ -605,5 +605,6 @@ def hauptmenu():
             print("Ungültige Eingabe. Bitte 1 oder 2 wählen.")
             time.sleep(1.0)
 
-if __name__ == "__main__":
+
+    # zum hauptmenü gehen
     hauptmenu()
