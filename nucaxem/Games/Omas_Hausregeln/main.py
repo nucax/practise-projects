@@ -55,6 +55,7 @@ def handle_death():
 
 
 # Erste entscheidung
+# In den ICE steigen?
 def entscheidung_1_einsteigen():
     while True:
         ans = input("Entscheidung 1 — In den ICE nach Naumburg steigen? (ja/nein): ").strip().lower()
@@ -70,7 +71,8 @@ def entscheidung_1_einsteigen():
 
 
 
-
+# Zweite Entscheidung
+# Oma umarmen?
 def entscheidung_2_umarmen():
     while True:
         ans = input("Entscheidung 2 — Oma zur Begrüßung umarmen? (ja/nein): ").strip().lower()
@@ -88,7 +90,8 @@ def entscheidung_2_umarmen():
 
 
 
-
+# Dritte Entscheidung
+# Essen von Oma nehmen?
 def entscheidung_3_essen_nehmen():
     """Entscheidung 3: Essen von Oma nehmen?"""
     while True:
@@ -107,7 +110,8 @@ def entscheidung_3_essen_nehmen():
 
 
 
-
+# Vierte Entscheidung
+#
 def entscheidung_4_ominous_food():
     """Entscheidung 4: Das ominöse Essen zu sich nehmen?"""
     while True:
