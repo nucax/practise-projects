@@ -1,25 +1,35 @@
-# -*- coding: utf-8 -*-
-"""
-Omas Hausregeln - vollständiges Terminal-Textadventure
-Autor: Umsetzung nach Nutzerdokument (Anna Stärke, Louis Thevis)
-Benötigt: colorama (pip install colorama)
-"""
+# utf-8
+# Omas Hausregeln
+# Autoren: Anna Stärke, Louis Thevis
+# Benötigt: colorama
+
+
+
 
 import os
 import time
 from colorama import init, Fore, Style
 
+
+# Colorama init
 init(autoreset=True)
 
+
+
+# funktion um den ganzen bildschirm zu leeren
 def bildschirm_leeren():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
+# funktion für eine kurze pause
 def kurze_pause(sec=1.2):
     time.sleep(sec)
 
-# --- Utility für Tod / Neustart ---
+
+
+
+# funktion für den tod
 def handle_death():
-    """Zeigt Todesmeldung, blinkt rot kurz und signalisiert Neustart."""
     for i in range(3):
         bildschirm_leeren()
         print(Fore.RED + Style.BRIGHT + "!!! DU BIST TOT !!!")
