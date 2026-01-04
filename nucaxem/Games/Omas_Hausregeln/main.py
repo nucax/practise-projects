@@ -579,7 +579,11 @@ def spiel_starten():
         kurze_pause(1.6)
         return
 
-# --- Hauptmenü ---
+
+
+
+
+# Hauptmenü
 def hauptmenu():
     while True:
         bildschirm_leeren()
