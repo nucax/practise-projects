@@ -2,6 +2,8 @@
 # Omas Hausregeln
 # Autoren: Anna Stärke, Louis Thevis
 # Benötigt: colorama
+# Informationen:
+# Man kann immer mit "n" für "Nein" und mit "j" für "Ja"
 
 
 
@@ -40,10 +42,20 @@ def handle_death():
     time.sleep(1.6)
     return 'restart'
 
-# --- Entscheidungen (jede Entscheidung ist eine eigene Funktion) ---
 
+
+
+
+
+# !!!!!!!!! Entscheidungen
+# !!!!!!!!! Entscheidungen
+# !!!!!!!!! Entscheidungen
+
+
+
+
+# Erste entscheidung
 def entscheidung_1_einsteigen():
-    """Entscheidung 1: In den ICE nach Naumburg steigen?"""
     while True:
         ans = input("Entscheidung 1 — In den ICE nach Naumburg steigen? (ja/nein): ").strip().lower()
         if ans in ("ja","j"):
@@ -54,8 +66,12 @@ def entscheidung_1_einsteigen():
             return {"choice":"nein"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
+
+
+
+
+
 def entscheidung_2_umarmen():
-    """Entscheidung 2: Oma zur Begrüßung umarmen?"""
     while True:
         ans = input("Entscheidung 2 — Oma zur Begrüßung umarmen? (ja/nein): ").strip().lower()
         if ans in ("ja","j"):
@@ -67,6 +83,11 @@ def entscheidung_2_umarmen():
             kurze_pause(1.6)
             return {"choice":"nein"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
+
+
+
+
+
 
 def entscheidung_3_essen_nehmen():
     """Entscheidung 3: Essen von Oma nehmen?"""
@@ -82,6 +103,11 @@ def entscheidung_3_essen_nehmen():
             return {"choice":"nein","meal_prepared":True}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
+
+
+
+
+
 def entscheidung_4_ominous_food():
     """Entscheidung 4: Das ominöse Essen zu sich nehmen?"""
     while True:
@@ -95,6 +121,12 @@ def entscheidung_4_ominous_food():
             kurze_pause(1.6)
             return {"choice":"nein"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
+
+
+
+
+
+
 
 def entscheidung_5_katze_fuettern():
     """Entscheidung 5: Füttert das Mädchen die Katze?"""
@@ -110,6 +142,11 @@ def entscheidung_5_katze_fuettern():
             return {"choice":"nein"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
+
+
+
+
+
 def entscheidung_6_couch_bleiben():
     """Entscheidung 6: Bleibt das Mädchen bei der Oma auf der Couch?"""
     while True:
@@ -123,6 +160,13 @@ def entscheidung_6_couch_bleiben():
             kurze_pause(2.2)
             return {"choice":"nein","time_advanced_to":"20:00"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
+
+
+
+
+
+
+
 
 def entscheidung_7_tuer_oeffnen():
     """Entscheidung 7: Öffnet das Mädchen die Tür (als Kratzen ertönt)?"""
@@ -139,6 +183,13 @@ def entscheidung_7_tuer_oeffnen():
             kurze_pause(1.6)
             return {"choice":"nein","result":"slept_fearfully"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
+
+
+
+
+
+
+
 
 def entscheidung_8_vorhang_ziehen():
     """Entscheidung 8: Vorhang zur Seite ziehen bei Klopfen am Fenster (Nacht 1)."""
@@ -159,6 +210,13 @@ def entscheidung_8_vorhang_ziehen():
             return {"choice":"nein","result":"death"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
+
+
+
+
+
+
+
 def entscheidung_9_aufstehen():
     """Entscheidung 9: Aufstehen oder nicht? (nächster Morgen)"""
     while True:
@@ -172,6 +230,11 @@ def entscheidung_9_aufstehen():
             kurze_pause(1.8)
             return {"choice":"nein"}
         print("Bitte mit 'auf' oder 'nein' antworten.")
+
+
+
+
+
 
 def entscheidung_10_zeichnungen_fragen():
     """Entscheidung 10: Oma nach den Zeichnungen fragen?"""
@@ -187,6 +250,12 @@ def entscheidung_10_zeichnungen_fragen():
             return {"choice":"nein","hint_received":False}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
+
+
+
+
+
+
 def entscheidung_11_mit_oma_serie_gucken():
     """Entscheidung 11: Mit Oma Serie gucken?"""
     while True:
@@ -201,6 +270,13 @@ def entscheidung_11_mit_oma_serie_gucken():
             return {"choice":"nein","time_advanced_to":"17:00"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
+
+
+
+
+
+
+
 def entscheidung_12_was_essen():
     """Entscheidung 12: Was willst du essen? (freie Antwort)"""
     ans = input("Entscheidung 12 — Was willst du essen? (schreib deine Antwort): ").strip()
@@ -209,6 +285,12 @@ def entscheidung_12_was_essen():
     print(f"Die Oma macht dir {ans} und ihr esst zusammen. Es schmeckt wieder etwas seltsam, aber du traust dich nicht es anzusprechen.")
     kurze_pause(2.0)
     return {"choice":ans}
+
+
+
+
+
+
 
 def entscheidung_13_wochenende_gefaellt():
     """Entscheidung 13: Gefällt dir das Wochenende bisher?"""
@@ -225,6 +307,12 @@ def entscheidung_13_wochenende_gefaellt():
             kurze_pause(2.2)
             return {"choice":"nein"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
+
+
+
+
+
+
 
 def entscheidung_schluessel_suchen():
     """Spezialszene: Zettel gefunden -> Schlüssel suchen (Option 1/2/3)"""
@@ -272,6 +360,11 @@ def entscheidung_verstecken_bei_schritten():
             return {"choice":"nein","result":"death"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
+
+
+
+
+
 def szene_hintertuer(found_bag=False):
     """Escape attempt through back door; if bag forgotten, different outcome."""
     if found_bag:
@@ -283,7 +376,6 @@ def szene_hintertuer(found_bag=False):
     else:
         print("Du öffnest die Hintertür — doch du hast deine Tasche vergessen. Was nun?")
         kurze_pause(1.4)
-        # According to doc: It says "Doch du hast deine Tasche vergessen." It implied hardship but escape possible.
         print("Trotzdem schaffst du es hinaus. Du spürst die Kälte, aber erreichst die Freiheit.")
         kurze_pause(2.0)
         print(Fore.GREEN + "Du hast entkommen! Spielende.")
