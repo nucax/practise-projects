@@ -698,4 +698,4 @@ def hauptmenu():
 
     # zum hauptmenü gehen
     if __name__ == "__main__":
-    hauptmenu()
+        hauptmenu()
