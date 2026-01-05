@@ -150,9 +150,8 @@ def entscheidung_5_katze_fuettern():
 
 
 def entscheidung_6_couch_bleiben():
-    """Entscheidung 6: Bleibt das Mädchen bei der Oma auf der Couch?"""
     while True:
-        ans = input("Entscheidung 6 — Bleibst du bei der Oma auf der Couch? (ja/nein): ").strip().lower()
+        ans = input("Bleibst du bei der Oma auf der Couch? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du bleibst bei deiner Oma auf der Couch und ihr schaut weiter. Die Katze liegt irgendwann auf ihrem Kratzbaum.")
             kurze_pause(1.6)
@@ -173,7 +172,7 @@ def entscheidung_6_couch_bleiben():
 def entscheidung_7_tuer_oeffnen():
     """Entscheidung 7: Öffnet das Mädchen die Tür (als Kratzen ertönt)?"""
     while True:
-        ans = input("Entscheidung 7 — Öffnest du die Tür? (ja/nein): ").strip().lower()
+        ans = input("Öffnest du die Tür? : ").strip().lower()
         if ans in ("ja","j"):
             print("Draußen steht die Katze und miaut ängstlich. Sie huscht ins Gästezimmer und versteckt sich unter dem Bett.")
             kurze_pause(1.8)
@@ -384,7 +383,7 @@ def szene_hintertuer(found_bag=False):
         kurze_pause(2.0)
         return {"escaped":True}
 
-# --- Spiel-Engine / Szenenablauf ---
+# Szenenablauf
 def spiel_starten():
     """Steuert den kompletten Ablauf. Auf Todesfälle mit 'restart' reagieren."""
     while True:  # loop für Neustarts nach Tod
@@ -397,17 +396,24 @@ def spiel_starten():
         print("\nDas Abenteuer beginnt...\n")
         kurze_pause(1.0)
 
-        # Szene: Bahnhof & Entscheidung 1
+
+
+
+
+        
+        # Szene 1
         print("Du bist ein vierzehnjähriges Mädchen aus Berlin, und du willst deine Oma in Naumburg besuchen.")
         kurze_pause(1.2)
         res1 = entscheidung_1_einsteigen()
         if res1["choice"] == "nein":
-            # zurück zum Hauptmenü
+            # erste entscheidung nein als antwort gegeben
             kurze_pause(1.2)
             print("Du kehrst nach Berlin zurück. Spiel wird beendet.")
             kurze_pause(1.6)
             return
 
+
+        
         bildschirm_leeren()
         print("Das Mädchen sitzt im Zug und fährt wie geplant zu ihrer Oma.")
         kurze_pause(1.1)
@@ -416,8 +422,16 @@ def spiel_starten():
         print("Sie klingelt, die Oma öffnet. Die Katze Cheesecake springt freudig entgegen.")
         kurze_pause(1.4)
 
+
+
+
+        
         # Entscheidung 2
         res2 = entscheidung_2_umarmen()
+
+
+
+        
         # weiter im Haus
         bildschirm_leeren()
         print("Das Mädchen, die Oma und die Katze gehen hinein. Du bringst deine Übernachtungssachen für 3 Nächte ins Gästezimmer.")
@@ -425,9 +439,18 @@ def spiel_starten():
         print("Die Oma fragt, ob du etwas essen oder trinken möchtest nach deiner langen Reise.")
         kurze_pause(1.2)
 
+
+
+
+        
         # Entscheidung 3
         res3 = entscheidung_3_essen_nehmen()
 
+
+
+
+
+        
         # Entscheidung 4
         res4 = entscheidung_4_ominous_food()
         # Zeitangabe special colour
@@ -436,9 +459,14 @@ def spiel_starten():
         print("Fütterungszeit für die Katze.")
         kurze_pause(0.9)
 
+
+
+        
         # Entscheidung 5
         res5 = entscheidung_5_katze_fuettern()
 
+
+        
         # 16:00 Uhr Serienzeit
         print(Fore.CYAN + "Es ist jetzt 16:00 Uhr.")
         kurze_pause(0.7)
@@ -447,9 +475,19 @@ def spiel_starten():
         print(Fore.CYAN + "Die Zeit verging schnell, jetzt ist es 19:00 Uhr.")
         kurze_pause(1.2)
 
+
+
+
+
+        
         # Entscheidung 6
         res6 = entscheidung_6_couch_bleiben()
 
+
+
+
+
+        
         if res6["choice"] == "ja":
             bildschirm_leeren()
             print(Fore.CYAN + "Es wird schnell 21:00 Uhr.")
@@ -471,6 +509,12 @@ def spiel_starten():
             else:
                 skip_door_event = False
 
+
+
+
+
+
+        
         # Nacht 1: 3:00 Uhr Klopfen
         print(Fore.CYAN + "Nacht 1 — Es ist 3:00 Uhr mitten in der Nacht.")
         kurze_pause(1.0)
@@ -489,34 +533,65 @@ def spiel_starten():
             print("Du bist wach, aber es bleibt ruhig. Du schläfst wieder ein.")
             kurze_pause(1.0)
 
-        # Morgen
+
+
+
+
+        
+        # Nächster Morgen
         bildschirm_leeren()
         print(Fore.CYAN + "Nächster Morgen — Es ist 11:00 Uhr.")
         kurze_pause(1.0)
         res9 = entscheidung_9_aufstehen()
 
+
+
+
+        
         print(Fore.CYAN + "Es ist 14:00 Uhr — Mittagessen.")
         kurze_pause(0.9)
 
+
+
+
+        
         # Entscheidung 10: Zeichnungen
         res10 = entscheidung_10_zeichnungen_fragen()
 
+
+
+
+        
         # 15:00 Spaziergang / Serie
         print("Es ist nun 15:00 Uhr. Nach dem Mittagessen willst du spazieren gehen und fragst deine Oma.")
         kurze_pause(1.0)
         print("Sie lacht merkwürdig und sagt trocken: 'nein'. Du findest das komisch, willst aber lieber nichts erzwingen.")
         kurze_pause(1.1)
 
+
+
+
+        
         # Entscheidung 11
         res11 = entscheidung_11_mit_oma_serie_gucken()
 
+
+
+
+        
         # Entscheidung 12: Was essen?
         res12 = entscheidung_12_was_essen()
 
+
+
+        
         # 17:00 Uno
         print(Fore.CYAN + "Es ist 17:00 Uhr. Ihr spielt Uno zusammen.")
         kurze_pause(1.0)
         res13 = entscheidung_13_wochenende_gefaellt()
+
+
+
 
         # Nacht 2 - Unbehagen, Fluchtplan
         print("Nacht 2.")
@@ -528,6 +603,10 @@ def spiel_starten():
         print("Du gehst zur Tür — alles abgeschlossen. Fenster ebenfalls. Du erinnerst dich an den Zettel mit der Haus-Skizze.")
         kurze_pause(1.6)
 
+
+
+
+        
         # Schlüssel-Szene (Entscheidung  in 3 Optionen)
         schluessel_res = entscheidung_schluessel_suchen()
         if schluessel_res.get("death"):
@@ -536,6 +615,11 @@ def spiel_starten():
             if outcome == 'restart':
                 continue
 
+
+
+
+
+        
         if schluessel_res.get("found_key"):
             # Nun testen der Türen: Haustür passt nicht, Fenster passt nicht, Schritte im Flur
             print("Du testest die Haustür: passt nicht.")
@@ -575,6 +659,10 @@ def spiel_starten():
             if outcome == 'restart':
                 continue
 
+
+
+
+        
         # zweiter fallback falls vorher auch kein richtiges ende kam.
         print("Das Abenteuer ist (vorerst) vorbei. Zurück zum Hauptmenü.")
         kurze_pause(1.6)
@@ -588,7 +676,7 @@ def spiel_starten():
 def hauptmenu():
     while True:
         bildschirm_leeren()
-        # ascii art
+        # ascii art im hauptmenü
         print("   ___                  _  _                               _ ")
         print("  / _ \\ _ __  __ _ ___ | || |__ _ _  _ ____ _ ___ __ _ ___| |_ _  ")
         print(" | (_) | '  \\/ _` (_-< | __ / _` | || (_-< '_/ -_) _` / -_) | ' \\ ")
