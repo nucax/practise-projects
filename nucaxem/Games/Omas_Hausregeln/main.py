@@ -58,7 +58,7 @@ def handle_death():
 # In den ICE steigen?
 def entscheidung_1_einsteigen():
     while True:
-        ans = input("Entscheidung 1 — In den ICE nach Naumburg steigen? (ja/nein): ").strip().lower()
+        ans = input("In den ICE nach Naumburg steigen? : ").strip().lower()
         if ans in ("ja","j"):
             return {"choice":"ja"}
         if ans in ("nein","n"):
@@ -75,7 +75,7 @@ def entscheidung_1_einsteigen():
 # Oma umarmen?
 def entscheidung_2_umarmen():
     while True:
-        ans = input("Entscheidung 2 — Oma zur Begrüßung umarmen? (ja/nein): ").strip().lower()
+        ans = input("Oma zur Begrüßung umarmen? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Oma freut sich und umarmt dich auch.")
             kurze_pause(1.6)
@@ -93,9 +93,8 @@ def entscheidung_2_umarmen():
 # Dritte Entscheidung
 # Essen von Oma nehmen?
 def entscheidung_3_essen_nehmen():
-    """Entscheidung 3: Essen von Oma nehmen?"""
     while True:
-        ans = input("Entscheidung 3 — Essen von Oma nehmen? (ja/nein): ").strip().lower()
+        ans = input("Essen von Oma nehmen? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Oma freut sich und macht dir etwas zu essen.")
             kurze_pause(1.6)
@@ -111,11 +110,10 @@ def entscheidung_3_essen_nehmen():
 
 
 # Vierte Entscheidung
-#
+# Ominöses Essen zu sich nehmen?
 def entscheidung_4_ominous_food():
-    """Entscheidung 4: Das ominöse Essen zu sich nehmen?"""
     while True:
-        ans = input("Entscheidung 4 — Das ominöse Essen zu sich nehmen? (ja/nein): ").strip().lower()
+        ans = input("Das ominöse Essen zu sich nehmen? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du nimmst einen Bissen. Es schmeckt nicht ganz wie es sollte, aber vorerst merkst du keinen Unterschied.")
             kurze_pause(1.8)
@@ -131,11 +129,11 @@ def entscheidung_4_ominous_food():
 
 
 
-
+# Fünfte Entscheidung
+# Die Katze füttern?
 def entscheidung_5_katze_fuettern():
-    """Entscheidung 5: Füttert das Mädchen die Katze?"""
     while True:
-        ans = input("Entscheidung 5 — Fütterst du die Katze? (ja/nein): ").strip().lower()
+        ans = input("Fütterst du die Katze? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Die Oma ist glücklich und gibt dir das Katzenfutter. Du fütterst die Katze.")
             kurze_pause(1.6)
