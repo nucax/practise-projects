@@ -700,7 +700,7 @@ def hauptmenu():
             time.sleep(0.6)
             break
         else:
-            print("Ungültige Eingabe. Bitte 1 oder 2 wählen.")
+            print("Mit ja oder nein antworten.")
             time.sleep(1.0)
 
 
