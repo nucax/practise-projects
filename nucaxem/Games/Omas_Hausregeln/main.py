@@ -224,7 +224,7 @@ def entscheidung_9_aufstehen():
     while True:
         ans = input("Aufstehen? : ").strip().lower()
         if ans in ("ja","j"):
-            print("Du stehst auf, begrüßt deine Oma vorsichtig und sie macht Frühstück. Du gehst duschen, isst, und spielst bis 14:00 Uhr 'Mensch ärgere dich nicht' mit deiner Oma.")
+            print("Du stehst auf, begrüßt deine Oma und sie macht Frühstück. Du gehst duschen, isst, und spielst bis 14 Uhr 'Mensch ärgere dich nicht' mit deiner Oma.")
             kurze_pause(2.0)
             return {"choice":"auf"}
         if ans in ("nein","n"):
