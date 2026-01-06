@@ -196,7 +196,7 @@ def entscheidung_7_tuer_oeffnen():
 # Vorhang ziehen?
 def entscheidung_8_vorhang_ziehen():
     while True:
-        ans = input("Entscheidung 8 — Vorhang zur Seite ziehen? (ja/nein): ").strip().lower()
+        ans = input("Vorhang zur Seite ziehen? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.CYAN + "Du siehst aus dem Augenwinkel eine Person, die verpixelt aussieht. Sie verschwindet blitzschnell wieder.")
             kurze_pause(2.0)
@@ -205,7 +205,7 @@ def entscheidung_8_vorhang_ziehen():
             return {"choice":"ja","result":"saw_pixel_person"}
         if ans in ("nein","n"):
             # Escalation -> leads to death sequence in doc
-            print("Das Klopfen wird lauter und lauter. Du rennst zur Tür deiner Oma, doch sie ist nicht da. Plötzlich klopft es hinter dir an der Wand. Du drehst dich um...")
+            print("Das Klopfen wird lauter und lauter. Du rennst zur Tür deiner Oma doch sie ist nicht da. Plötzlich klopft es hinter dir an der Wand. Du drehst dich um...")
             kurze_pause(2.0)
             print(Fore.RED + "Du bist tot.")
             kurze_pause(1.2)
@@ -241,7 +241,7 @@ def entscheidung_9_aufstehen():
 # Nach zeichnungen fragen?
 def entscheidung_10_zeichnungen_fragen():
     while True:
-        ans = input("Oma nach den Zeichnungen fragen? (ja/nein): ").strip().lower()
+        ans = input("Oma nach den Zeichnungen an der Wand fragen? : ").strip().lower()
         if ans in ("ja","j"):
             print("Die Oma guckt ein wenig komisch und sagt: Das wirst du wahrscheinlich selbst noch herausfinden.")
             kurze_pause(1.8)
@@ -261,7 +261,7 @@ def entscheidung_10_zeichnungen_fragen():
 # serie mitgucken?
 def entscheidung_11_mit_oma_serie_gucken():
     while True:
-        ans = input("Entscheidung 11 — Mit Oma Serie gucken? (ja/nein): ").strip().lower()
+        ans = input("Mit Oma Serie gucken? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du schaust mit Oma die Serie. Es wird schnell 21:00 Uhr.")
             kurze_pause(1.6)
@@ -309,87 +309,93 @@ def entscheidung_13_wochenende_gefaellt():
             kurze_pause(2.2)
             print(Fore.YELLOW + "Der Ton ihrer Stimme lässt dich unwohl fühlen")
             return {"choice":"nein"}
-        print("Bitte mit 'ja' oder 'nein' antworten.")
+        print("Mit ja oder nein antworten.")
 
 
 
 
 
 
-
+# schlüssel suchen. es ist random, weil man vorher keine hints bekommen hat
+# 1: richtig
+# 2: tot
+# 3: tot
 def entscheidung_schluessel_suchen():
-    """Spezialszene: Zettel gefunden -> Schlüssel suchen (Option 1/2/3)"""
-    print("Du hebst den Zettel auf — er zeigt eine grobe Skizze des Hauses.")
-    kurze_pause(1.6)
-    print("Auf dem Zimmer deiner Oma ist ein kleines Schlüsselsymbol abgebildet. Du solltest zum Zimmer deiner Oma gehen — aber sei leise.")
+    print("Du hebst den Zettel auf. Der Zettel zeigt eine grobe Skizze des Hauses.")
     kurze_pause(2.0)
+    print("Auf dem Zimmer deiner Oma ist ein kleines Schlüsselsymbol abgebildet. Du solltest zum Zimmer deiner Oma gehen, aber sei leise.")
+    kurze_pause(3.0)
     print("Wo könnte der Schlüssel sein?")
-    print("1) In ihrer Nachttischschublade")
-    print("2) Auf ihrem Schreibtisch")
-    print("3) Auf einem Wandschrank")
+    print("1: In ihrer Nachttischschublade")
+    print("2: Auf ihrem Schreibtisch")
+    print("3: Auf einem Wandschrank")
     while True:
         ans = input("Wähle 1, 2 oder 3: ").strip()
         if ans == "1":
+            # schlüssel gefunden
             print("Du öffnest die Nachttischschublade leise und findest den Schlüssel! Sehr gut.")
             kurze_pause(1.4)
             return {"choice":"1","found_key":True}
         if ans == "2":
+            # schlüssel nicht gefunden und death returned
             print("Du gehst zum Schreibtisch. Als du dich vorbeugst, knarrt der Stuhl — zu spät.")
             kurze_pause(1.0)
             print(Fore.RED + "Die Oma steht plötzlich auf, sieht dich, und du bist tot.")
             kurze_pause(1.0)
-            return {"choice":"2","found_key":False,"death":True}
+            return {"choice":"2","found_key":False,"death":True} # tot
         if ans == "3":
-            print("Du untersuchst den Wandschrank. Es wirkt unheimlich. Plötzlich ist da ein Messer in der Hand deiner Oma...")
-            kurze_pause(1.0)
+            # schlüssel nicht gefunden und death returned
+            print("Du untersuchst den Wandschrank. Du siehst keinen Schlüssel.. und dann siehst im Schatten deine Oma mit einem Messer in der Hand..")
+            kurze_pause(2.0)
             print(Fore.RED + "Du bist tot.")
             kurze_pause(1.0)
-            return {"choice":"3","found_key":False,"death":True}
-        print("Bitte 1, 2 oder 3 eingeben.")
+            return {"choice":"3","found_key":False,"death":True}  # tot 
+        print("Mit ja oder nein antworten.")
 
+
+# Verstecken nachdem man Schritte gehört hat?
 def entscheidung_verstecken_bei_schritten():
-    """Entscheidung: Verstecken wenn Schritte im Flur (nach Testen der Türen)."""
     while True:
-        ans = input("Versteckst du dich? (ja/nein): ").strip().lower()
+        ans = input("Versteckst du dich?: ").strip().lower()
         if ans in ("ja","j"):
-            print("Du kriechst schnell unter dein Bett. Die Oma schaut herein, bleibt aber ohne Ergebnis und geht wieder.")
+            print("Du kriechst schnell unter dein Bett. Die Oma schaut herein, aber sieht dich nicht.")
             kurze_pause(1.8)
-            print("Du kommst hervor und denkst an die Hintertür. Du wagst es, zur Hintertür zu schleichen.")
-            kurze_pause(1.4)
+            print("Du kommst hervor und denkst an die Hintertür. Du gehst langsam zur Hintertür.")
+            kurze_pause(1.8)
             return {"choice":"ja","result":"hidden_success"}
         if ans in ("nein","n"):
-            print(Fore.RED + "Du hörst Schritte näherkommen. Du drehst dich um... Du bist tot. (Dieser Text rot)")
+            print(Fore.RED + "Du hörst Schritte näherkommen. Du drehst dich um... Du bist tot.")
             kurze_pause(1.4)
-            return {"choice":"nein","result":"death"}
-        print("Bitte mit 'ja' oder 'nein' antworten.")
+            return {"choice":"nein","result":"death"} # rip
+        print("Mit ja oder nein antworten.")
 
 
 
 
 
-
+# Enden 
 def szene_hintertuer(found_bag=False):
-    """Escape attempt through back door; if bag forgotten, different outcome."""
     if found_bag:
-        print("Du öffnest die Hintertür vorsichtig — die Freiheit ist kalt, aber du bist draußen.")
+        # Gutes (ein bisschen besseres) ende
+        print("Du öffnest die Hintertür vorsichtig. Es ist sehr kalt, aber du bist draußen.")
         kurze_pause(1.6)
-        print(Fore.GREEN + "Du hast überlebt und bist entkommen! Spielende: Glückliches Ende.")
-        kurze_pause(2.2)
+        print(Fore.GREEN + "Du hast deine Tasche und bist entkommen! Spielende: Glückliches Ende.")
+        kurze_pause(4.0)
         return {"escaped":True}
     else:
-        print("Du öffnest die Hintertür — doch du hast deine Tasche vergessen. Was nun?")
+        # Normales ende
+        print("Du öffnest die Hintertür.. doch du hast deine Tasche vergessen.")
         kurze_pause(1.4)
-        print("Trotzdem schaffst du es hinaus. Du spürst die Kälte, aber erreichst die Freiheit.")
+        print("Trotzdem schaffst du es hinaus. Du spürst die Kälte aber erreichst die Freiheit.")
         kurze_pause(2.0)
-        print(Fore.GREEN + "Du hast entkommen! Spielende.")
-        kurze_pause(2.0)
+        print(Fore.GREEN + "Du bist entkommen.. Spielende.")
+        kurze_pause(3.0)
         return {"escaped":True}
 
-# Szenenablauf
+# Szenenablauf für den neustart nach dem tot mit dem ascii art
 def spiel_starten():
-    """Steuert den kompletten Ablauf. Auf Todesfälle mit 'restart' reagieren."""
     while True:  # loop für Neustarts nach Tod
-        bildschirm_leeren()
+        bildschirm_leeren() # WICHTIG
         print("   ___                  _  _                               _ ")
         print("  / _ \\ _ __  __ _ ___ | || |__ _ _  _ ____ _ ___ __ _ ___| |_ _  ")
         print(" | (_) | '  \\/ _` (_-< | __ / _` | || (_-< '_/ -_) _` / -_) | ' \\ ")
@@ -417,11 +423,11 @@ def spiel_starten():
 
         
         bildschirm_leeren()
-        print("Das Mädchen sitzt im Zug und fährt wie geplant zu ihrer Oma.")
+        print("Du sitzt im Zug und fährst wie geplant zu deiner Oma.")
         kurze_pause(1.1)
-        print("Sie kommt an, steigt aus dem Zug und läuft das letzte Stück zu ihrer Oma.")
+        print("Du kommst an, steigst aus dem Zug und läufst das letzte Stück zu deiner Oma.")
         kurze_pause(1.1)
-        print("Sie klingelt, die Oma öffnet. Die Katze Cheesecake springt freudig entgegen.")
+        print("Du klingelst, die Oma öffnet. Ihre Katze Cheesecake springt freudig entgegen.")
         kurze_pause(1.4)
 
 
@@ -436,9 +442,9 @@ def spiel_starten():
         
         # weiter im Haus
         bildschirm_leeren()
-        print("Das Mädchen, die Oma und die Katze gehen hinein. Du bringst deine Übernachtungssachen für 3 Nächte ins Gästezimmer.")
+        print("Das Mädchen und die Oma und die Katze gehen hinein. Du bringst deine Übernachtungssachen für 3 Nächte ins Gästezimmer..")
         kurze_pause(1.6)
-        print("Die Oma fragt, ob du etwas essen oder trinken möchtest nach deiner langen Reise.")
+        print("Oma fragt, ob du etwas essen oder trinken möchtest.")
         kurze_pause(1.2)
 
 
@@ -455,7 +461,6 @@ def spiel_starten():
         
         # Entscheidung 4
         res4 = entscheidung_4_ominous_food()
-        # Zeitangabe special colour
         print(Fore.CYAN + "Es ist nun 15:00 Uhr.")
         kurze_pause(0.9)
         print("Fütterungszeit für die Katze.")
@@ -529,7 +534,7 @@ def spiel_starten():
                 # death -> restart
                 outcome = handle_death()
                 if outcome == 'restart':
-                    continue  # outer while loop -> restart game
+                    continue  # Alles Weitere überspringen und von vorne anfangen basically
         else:
             # Wenn skip_door_event auf True gesetzt ist, geh normal zum nächstem tag
             kurze_pause(1.0)
@@ -594,7 +599,7 @@ def spiel_starten():
 
 
 
-        # Nacht 2 - Unbehagen, Fluchtplan
+        # Nacht 2. Unbehagen und Fluchtplan
         print("Nacht 2.")
         kurze_pause(0.8)
         print("Der Blick deiner Oma bleibt dir im Kopf. Das Essen liegt dir schwer im Magen.")
@@ -622,7 +627,7 @@ def spiel_starten():
 
         
         if schluessel_res.get("found_key"):
-            # testen der Türen = Haustür passt nicht, Fenster passt nicht, Schritte im Flur
+            # testen der Türen usw
             print("Du testest die Haustür: passt nicht.")
             kurze_pause(0.8)
             print("Du testest das Fenster: passt nicht.")
