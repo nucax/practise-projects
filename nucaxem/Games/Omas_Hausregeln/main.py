@@ -699,6 +699,5 @@ def hauptmenu():
             time.sleep(1.0)
 
 
-    # zum hauptmenü gehen
-    if __name__ == "__main__":
-        hauptmenu()
+# zum hauptmenü gehen
+hauptmenu()
