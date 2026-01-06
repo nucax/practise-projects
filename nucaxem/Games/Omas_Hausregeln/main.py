@@ -57,12 +57,12 @@ def handle_death():
 # Erste entscheidung
 # In den ICE steigen?
 def entscheidung_1_einsteigen():
-    while True:
+    while True: # ERINNERUNG = für alle entscheidungen benutzen
         ans = input("In den ICE nach Naumburg steigen? : ").strip().lower() # ERINNERUNG = für alle inputs anwenden
         if ans in ("ja","j"):
             return {"choice":"ja"}
         if ans in ("nein","n"):
-            print("Schade, du kehrst nach Berlin zurück.")
+            print("Duu kehrst nach Berlin zurück.")
             kurze_pause(1.8)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
@@ -77,11 +77,11 @@ def entscheidung_2_umarmen():
     while True:
         ans = input("Oma zur Begrüßung umarmen? : ").strip().lower()
         if ans in ("ja","j"):
-            print(Fore.GREEN + "Oma freut sich und umarmt dich auch.")
+            print(Fore.GREEN + "Oma freut sich und erzählt wie sie dich vermisst hat..")
             kurze_pause(1.6)
             return {"choice":"ja"}
         if ans in ("nein","n"):
-            print(Fore.YELLOW + "Oma ist traurig, sagt aber trotzdem nett Hallo und erzählt, wie sie dich vermisst hat.")
+            print(Fore.YELLOW + "Oma wirkt enttäuscht, sagt aber trotzdem nett Hallo zu dir.")
             kurze_pause(1.6)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
@@ -100,7 +100,7 @@ def entscheidung_3_essen_nehmen():
             kurze_pause(1.6)
             return {"choice":"ja","meal_prepared":True}
         if ans in ("nein","n"):
-            print(Fore.YELLOW + "Oma guckt ein wenig beleidigt, Cheesecake miaut laut, aber Oma sagt: 'Doch Kind, ich mach dir etwas leckeres'.")
+            print(Fore.YELLOW + "Oma guckt ein wenig beleidigt und Cheesecake miaut laut, aber Oma sagt: Doch Kind ich mach dir etwas leckeres.")
             kurze_pause(1.8)
             return {"choice":"nein","meal_prepared":True}
         print("Mit ja oder nein antworten.")
@@ -115,11 +115,11 @@ def entscheidung_4_ominous_food():
     while True:
         ans = input("Das ominöse Essen zu sich nehmen? : ").strip().lower()
         if ans in ("ja","j"):
-            print("Du nimmst einen Bissen. Es schmeckt nicht ganz wie es sollte, aber vorerst merkst du keinen Unterschied.")
+            print("Du nimmst einen Bissen. Es schmeckt komisch, aber du sagst nichts.")
             kurze_pause(1.8)
             return {"choice":"ja"}
         if ans in ("nein","n"):
-            print("Du nimmst es nicht — die Oma wirft das Essen wütend weg.")
+            print("Du nimmst es nicht. Oma wirft das Essen wütend weg.")
             kurze_pause(1.6)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
@@ -135,11 +135,11 @@ def entscheidung_5_katze_fuettern():
     while True:
         ans = input("Fütterst du die Katze? : ").strip().lower()
         if ans in ("ja","j"):
-            print(Fore.GREEN + "Die Oma ist glücklich und gibt dir das Katzenfutter. Du fütterst die Katze.")
+            print(Fore.GREEN + "Die Oma ist glücklich und gibt dir das Katzenfutter und Du fütterst Cheesecake.")
             kurze_pause(1.6)
             return {"choice":"ja"}
         if ans in ("nein","n"):
-            print("Die Oma sagt es sei kein Problem, aber du merkst, dass sie beleidigt ist. Du fütterst die Katze nun selbst.")
+            print("Oma sagt das alles gut ist, aber du merkst das sie beleidigt ist.")
             kurze_pause(1.6)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
@@ -154,11 +154,11 @@ def entscheidung_6_couch_bleiben():
     while True:
         ans = input("Bleibst du bei der Oma auf der Couch? : ").strip().lower()
         if ans in ("ja","j"):
-            print("Du bleibst bei deiner Oma auf der Couch und ihr schaut weiter. Die Katze liegt irgendwann auf ihrem Kratzbaum.")
+            print("Du bleibst bei deiner Oma auf der Couch und ihr schaut weiter. Cheesecake liegt auf ihrem Kratzbaum.")
             kurze_pause(1.6)
             return {"choice":"ja","time_advanced_to":"21:00"}
         if ans in ("nein","n"):
-            print("Du gehst ins Gästezimmer, holst Handy und iPad: Kein Internet. Du liest stattdessen dein Lieblingsbuch.")
+            print("Du gehst ins Gästezimmer und holst Handy und iPad raus. Oma hat kein Internet also liest du.")
             kurze_pause(2.2)
             return {"choice":"nein","time_advanced_to":"20:00"}
         print("Mit ja oder nein antworten.")
@@ -237,16 +237,17 @@ def entscheidung_9_aufstehen():
 
 
 
-
+# Zehnte entscheidung
+# Nach zeichnungen fragen?
 def entscheidung_10_zeichnungen_fragen():
     while True:
-        ans = input("Entscheidung 10 — Oma nach den Zeichnungen fragen? (ja/nein): ").strip().lower()
+        ans = input("Oma nach den Zeichnungen fragen? (ja/nein): ").strip().lower()
         if ans in ("ja","j"):
-            print("Die Oma guckt ein wenig komisch und sagt: 'Das wirst du wahrscheinlich selbst noch herausfinden. Vielleicht ist es bald nützlich.'")
+            print("Die Oma guckt ein wenig komisch und sagt: Das wirst du wahrscheinlich selbst noch herausfinden.")
             kurze_pause(1.8)
             return {"choice":"ja","hint_received":True}
         if ans in ("nein","n"):
-            print("Du fragst nicht weiter. Das Spiel geht weiter...")
+            print("Du fragst nicht.")
             kurze_pause(1.4)
             return {"choice":"nein","hint_received":False}
         print("Mit ja oder nein antworten.")
@@ -256,7 +257,8 @@ def entscheidung_10_zeichnungen_fragen():
 
 
 
-
+# 11. entscheidung
+# serie mitgucken?
 def entscheidung_11_mit_oma_serie_gucken():
     while True:
         ans = input("Entscheidung 11 — Mit Oma Serie gucken? (ja/nein): ").strip().lower()
@@ -276,11 +278,12 @@ def entscheidung_11_mit_oma_serie_gucken():
 
 
 
-
+# 12. Entscheidung
+# custom essen frage (was willst du essen?)
 def entscheidung_12_was_essen():
     ans = input("Was willst du essen? : ").strip()
     if not ans:
-        ans = "etwas"
+        ans = "etwas" # zur sicherheit falls der user den input leer lässt
     print(f"Die Oma macht dir {ans} und ihr esst zusammen. Es schmeckt wieder etwas seltsam aber du traust dich nicht es anzusprechen.")
     kurze_pause(2.0)
     return {"choice":ans}
@@ -290,20 +293,21 @@ def entscheidung_12_was_essen():
 
 
 
-
+# 13. Entscheidung
+# gefällt dir das wochende?
 def entscheidung_13_wochenende_gefaellt():
-    """Entscheidung 13: Gefällt dir das Wochenende bisher?"""
     while True:
-        ans = input("Entscheidung 13 — Gefällt dir das Wochenende bisher? (ja/nein): ").strip().lower()
+        ans = input("Gefällt dir das Wochenende bisher? : ").strip().lower()
         if ans in ("ja","j"):
-            print(Fore.GREEN + "Die Oma lächelt zufrieden und freut sich sichtlich.")
+            print(Fore.GREEN + "Die Oma lächelt zufrieden und freut sich.")
             kurze_pause(1.6)
             return {"choice":"ja"}
         if ans in ("nein","n"):
-            print(Fore.RED + "Die Oma ist traurig. (dieser Text rot)")  # gemäß Dokument
+            print(Fore.RED + "Die Oma ist traurig.")  # gemäß Dokument
             kurze_pause(1.0)
-            print(Fore.YELLOW + "Sie sagt trotzdem, sie hoffe, dass es morgen besser wird. Sie starrt dich merkwürdig durchdringend an, ihr Tonfall macht dich unwohl.")
+            print(Fore.YELLOW + "Sie starrt dich merkwürdig durchdringend an.")
             kurze_pause(2.2)
+            print(Fore.YELLOW + "Der Ton ihrer Stimme lässt dich unwohl fühlen")
             return {"choice":"nein"}
         print("Bitte mit 'ja' oder 'nein' antworten.")
 
