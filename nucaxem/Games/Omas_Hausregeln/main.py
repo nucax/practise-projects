@@ -133,7 +133,7 @@ def entscheidung_4_ominous_food():
 # Die Katze füttern?
 def entscheidung_5_katze_fuettern():
     while True:
-        ans = input("Fütterst du die Katze? : ").strip().lower()
+        ans = input("Fütterst du Cheesecake? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Die Oma ist glücklich und gibt dir das Katzenfutter und Du fütterst Cheesecake.")
             kurze_pause(1.6)
