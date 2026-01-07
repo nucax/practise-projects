@@ -35,12 +35,12 @@ def handle_death():
     for i in range(3):
         bildschirm_leeren()
         print(Fore.RED + Style.BRIGHT + "!!! DU BIST TOT !!!")
-        time.sleep(0.35)
+        time.sleep(0.35) # 35 milisekunden damit man es nur ganz kurz sieht und es "flashy" ist
         bildschirm_leeren()
         time.sleep(0.25)
-    print(Fore.RED + "Das Spiel startet von neuem...")
+    print(Fore.RED + "Das Spiel startet von neuem.")
     time.sleep(1.6)
-    return 'restart'
+    return 'restart' # restart zurückbringen
 
 
 
