@@ -3,7 +3,7 @@
 # Autoren: Anna Stärke, Louis Thevis
 # Benötigt: colorama
 # Informationen:
-# Man kann immer mit "n" für "Nein" und mit "j" für "Ja"
+
 
 
 
@@ -24,7 +24,7 @@ def bildschirm_leeren():
 
 
 # funktion für eine kurze pause
-def kurze_pause(sec=1.2):
+def kurze_pause(sec=1.2): # normal ist also 1.2 sekunden wenn nichts anderes angeben ist
     time.sleep(sec)
 
 
@@ -50,7 +50,7 @@ def handle_death():
 # !!!!!!!!! Entscheidungen
 # !!!!!!!!! Entscheidungen
 # !!!!!!!!! Entscheidungen
-
+# Man kann immer mit "n" für "Nein" und mit "j" für "Ja"
 
 
 
@@ -98,7 +98,7 @@ def entscheidung_3_essen_nehmen():
         if ans in ("ja","j"):
             print(Fore.GREEN + "Oma freut sich und macht dir etwas zu essen.")
             kurze_pause(1.6)
-            return {"choice":"ja","meal_prepared":True}
+            return {"choice":"ja","meal_prepared":True} #später beachten
         if ans in ("nein","n"):
             print(Fore.YELLOW + "Oma guckt ein wenig beleidigt und Cheesecake miaut laut, aber Oma sagt: Doch Kind ich mach dir etwas leckeres.")
             kurze_pause(1.8)
