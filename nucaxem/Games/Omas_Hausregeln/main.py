@@ -302,7 +302,7 @@ def entscheidung_13_wochenende_gefaellt():
             kurze_pause(1.6)
             return {"choice":"ja"}
         if ans in ("nein","n"):
-            print(Fore.RED + "Die Oma ist traurig.")  # gemäß Dokument
+            print(Fore.RED + "Die Oma ist traurig.")
             kurze_pause(1.0)
             print(Fore.YELLOW + "Sie starrt dich merkwürdig durchdringend an.")
             kurze_pause(2.2)
