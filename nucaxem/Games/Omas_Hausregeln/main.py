@@ -204,7 +204,6 @@ def entscheidung_8_vorhang_ziehen():
             kurze_pause(1.4)
             return {"choice":"ja","result":"saw_pixel_person"}
         if ans in ("nein","n"):
-            # Escalation -> leads to death sequence in doc
             print("Das Klopfen wird lauter und lauter. Du rennst zur Tür deiner Oma doch sie ist nicht da. Plötzlich klopft es hinter dir an der Wand. Du drehst dich um...")
             kurze_pause(2.0)
             print(Fore.RED + "Du bist tot.")
