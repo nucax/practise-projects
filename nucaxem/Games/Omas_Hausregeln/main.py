@@ -441,7 +441,7 @@ def spiel_starten():
 
         
         # weiter im Haus
-        bildschirm_leeren()
+        bildschirm_leeren() # noch hinzugefügt, damit es übersichtlicher ist!
         print("Das Mädchen und die Oma und die Katze gehen hinein. Du bringst deine Übernachtungssachen für 3 Nächte ins Gästezimmer..")
         kurze_pause(1.6)
         print("Oma fragt, ob du etwas essen oder trinken möchtest.")
@@ -463,7 +463,7 @@ def spiel_starten():
         res4 = entscheidung_4_ominous_food()
         print(Fore.CYAN + "Es ist nun 15:00 Uhr.")
         kurze_pause(0.9)
-        print("Fütterungszeit für die Katze.")
+        print("Fütterungszeit für Cheesecake.")
         kurze_pause(0.9)
 
 
@@ -479,7 +479,7 @@ def spiel_starten():
         kurze_pause(0.7)
         print("Du und deine Oma schauen eine Serie. Cheesecake kuschelt sich auf deinen Schoß.")
         kurze_pause(1.2)
-        print(Fore.CYAN + "Die Zeit verging schnell, jetzt ist es 19:00 Uhr.")
+        print(Fore.CYAN + "Die Zeit verging schnell. Jetzt ist es 19:00 Uhr.")
         kurze_pause(1.2)
 
 
@@ -504,17 +504,17 @@ def spiel_starten():
             kurze_pause(1.0)
             skip_door_event = True
         else:
-            # not stayed: we are in guests room at 20:00 and hear Kratzen
+            # nicht geblieben
             print(Fore.CYAN + "Es ist nun 20:00 Uhr.")
             kurze_pause(0.9)
             print("Du liest, als du plötzlich ein lautes Kratzen an der Tür hörst.")
             kurze_pause(0.9)
             res7 = entscheidung_7_tuer_oeffnen()
             if res7["choice"] == "ja":
-                # saw odd oma but everything ok -> proceed
-                skip_door_event = True
+                # saw odd oma
+                skip_door_event = True # geh nicht zum door event
             else:
-                skip_door_event = False
+                skip_door_event = False # geh zum door event
 
 
 
@@ -591,7 +591,7 @@ def spiel_starten():
 
 
         
-        # 17:00 Uno
+        # 17:00 Uno mit Oma
         print(Fore.CYAN + "Es ist 17:00 Uhr. Ihr spielt Uno zusammen.")
         kurze_pause(1.0)
         res13 = entscheidung_13_wochenende_gefaellt()
@@ -599,7 +599,7 @@ def spiel_starten():
 
 
 
-        # Nacht 2. Unbehagen und Fluchtplan
+        # Nacht 2. Unbehagen und Fluchtplan hier
         print("Nacht 2.")
         kurze_pause(0.8)
         print("Der Blick deiner Oma bleibt dir im Kopf. Das Essen liegt dir schwer im Magen.")
@@ -616,7 +616,7 @@ def spiel_starten():
         # Schlüssel Szene
         schluessel_res = entscheidung_schluessel_suchen()
         if schluessel_res.get("death"):
-            # soforter tod
+            # tod
             outcome = handle_death()
             if outcome == 'restart':
                 continue
@@ -636,7 +636,7 @@ def spiel_starten():
             kurze_pause(0.9)
             versteck_res = entscheidung_verstecken_bei_schritten()
             if versteck_res["result"] == "death":
-                outcome = handle_death()
+                outcome = handle_death() # gestorben
                 if outcome == 'restart':
                     continue
             # falls das verstecken richtig geht
@@ -674,7 +674,7 @@ def spiel_starten():
         # !!!ZUR SICHERHEIT
         print("Das Abenteuer ist (vorerst) vorbei. Zurück zum Hauptmenü.")
         kurze_pause(1.6)
-        return
+        return  # ende
 
 
 
