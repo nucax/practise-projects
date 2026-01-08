@@ -1,8 +1,10 @@
-# utf-8
-# Omas Hausregeln
+# -*- coding: utf-8 -*-
+# Projekt: Omas Hausregeln
+# Datei: main.py
 # Autoren: Anna Stärke, Louis Thevis
-# Benötigt: colorama
-# Informationen:
+# Benötigt: Python 3.10+
+# Benötigte Module: colorama
+
 
 
 
