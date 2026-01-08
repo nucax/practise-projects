@@ -156,11 +156,11 @@ def entscheidung_6_couch_bleiben():
         if ans in ("ja","j"):
             print("Du bleibst bei deiner Oma auf der Couch und ihr schaut weiter. Cheesecake liegt auf ihrem Kratzbaum.")
             kurze_pause(1.6)
-            return {"choice":"ja","time_advanced_to":"21:00"}
+            return {"choice":"ja","time_advanced_to":"21:00"} # zeit geht zu 21 uhr
         if ans in ("nein","n"):
             print("Du gehst ins Gästezimmer und holst Handy und iPad raus. Oma hat kein Internet also liest du.")
             kurze_pause(2.2)
-            return {"choice":"nein","time_advanced_to":"20:00"}
+            return {"choice":"nein","time_advanced_to":"20:00"} # zeit geht zu 20 uhr
         print("Mit ja oder nein antworten.")
 
 
@@ -208,7 +208,7 @@ def entscheidung_8_vorhang_ziehen():
             kurze_pause(2.0)
             print(Fore.RED + "Du bist tot.")
             kurze_pause(1.2)
-            return {"choice":"nein","result":"death"}
+            return {"choice":"nein","result":"death"} # geh zu handledeath
         print("Mit ja oder nein antworten.")
 
 
@@ -244,11 +244,11 @@ def entscheidung_10_zeichnungen_fragen():
         if ans in ("ja","j"):
             print("Die Oma guckt ein wenig komisch und sagt: Das wirst du wahrscheinlich selbst noch herausfinden.")
             kurze_pause(1.8)
-            return {"choice":"ja","hint_received":True}
+            return {"choice":"ja","hint_received":True} # so das einem später hilft
         if ans in ("nein","n"):
             print("Du fragst nicht.")
             kurze_pause(1.4)
-            return {"choice":"nein","hint_received":False}
+            return {"choice":"nein","hint_received":False} # man hat den hinweis nicht bekommen
         print("Mit ja oder nein antworten.")
 
 
