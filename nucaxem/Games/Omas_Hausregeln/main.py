@@ -360,12 +360,12 @@ def entscheidung_verstecken_bei_schritten():
         ans = input("Versteckst du dich?: ").strip().lower()
         if ans in ("ja","j"):
             print("Du kriechst schnell unter dein Bett. Die Oma schaut herein, aber sieht dich nicht.")
-            kurze_pause(1.8)
+            kurze_pause(2.0) # 0.2 sekunden länger
             print("Du kommst hervor und denkst an die Hintertür. Du gehst langsam zur Hintertür.")
-            kurze_pause(1.8)
+            kurze_pause(2.0) # auch 0.2 sekunden länger
             return {"choice":"ja","result":"hidden_success"}
         if ans in ("nein","n"):
-            print(Fore.RED + "Du hörst Schritte näherkommen. Du drehst dich um... Du bist tot.")
+            print(Fore.RED + "Du hörst Schritte näherkommen. Du drehst dich um...") # eigentlich sollte in diesem print der tot revealed werden, aber für den flashy effekt in handledeath, habe ich es rausgenommen
             kurze_pause(1.4)
             return {"choice":"nein","result":"death"} # rip
         print("Mit ja oder nein antworten.")
