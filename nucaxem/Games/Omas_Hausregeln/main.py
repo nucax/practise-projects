@@ -34,14 +34,14 @@ def kurze_pause(sec=1.2): # normal ist also 1.2 sekunden wenn nichts anderes ang
 
 # funktion für den tod
 def handle_death():
-    for i in range(3):
-        bildschirm_leeren()
-        print(Fore.RED + Style.BRIGHT + "!!! DU BIST TOT !!!")
-        time.sleep(0.35) # 35 milisekunden damit man es nur ganz kurz sieht und es "flashy" ist
-        bildschirm_leeren()
-        time.sleep(0.25)
-    print(Fore.RED + "Das Spiel startet von neuem.")
-    time.sleep(1.6)
+    for i in range(3): # damit es drei mal passiert
+        bildschirm_leeren() # damit davor weg gemacht wird
+        print(Fore.RED + Style.BRIGHT + "!!! DU BIST TOT !!!") # roter du bist tot text mit !!!
+        time.sleep(0.35) # 0,35 sekunden damit man es nur ganz kurz sieht und es "flashy" ist
+        bildschirm_leeren() # das auch für den flashy effekt
+        time.sleep(0.25) # für den flashy effekt
+    print(Fore.RED + "Das Spiel startet von neuem.") # der neustart
+    time.sleep(1.6) # pause zwischen dem restart
     return 'restart' # restart zurückbringen
 
 
