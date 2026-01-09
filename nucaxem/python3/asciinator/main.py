@@ -1,10 +1,10 @@
-# autoren: joel ganser (peogrammierung) jann luebben (rum sitzen und porn guckwn)
+
 import json
 
 print("=" * 30)
 print("v.0.3")
 print("ASCIINATOR")
-print("made by joel ganser 2025 (c) ")
+print("made by joel ganser and Jann Lübben")
 print("your ASCII Art generator!")
 print("=" * 30)
 
@@ -34,5 +34,4 @@ for key, art in db.items():
         break
 
 if not found:
-    print("no fucking database w data base lol add more things pls :sob:")
-    print("or add database cause no farking fallback i am to soby to so ts  rose emoji")
+    print("versuvh mal was anderes")
