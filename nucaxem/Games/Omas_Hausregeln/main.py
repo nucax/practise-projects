@@ -641,11 +641,11 @@ def spiel_starten():
                 if outcome == 'restart':
                     continue
             # falls das verstecken richtig geht
-            if versteck_res["result"] == "hidden_success":
+            if versteck_res["result"] == "hidden_success": # das ende fürs verstecken
                 # Hintertür szene
                 # fragen ob der user die tasche vergessen hat damit es noch interaktiver ist
                 while True:
-                    bag_ans = input("Hast du deine Tasche dabei? (ja/nein): ").strip().lower()
+                    bag_ans = input("Hast du deine Tasche dabei?: ").strip().lower() # wichtig
                     if bag_ans in ("ja","j"):
                         escape_res = szene_hintertuer(found_bag=True)
                         break
@@ -654,9 +654,9 @@ def spiel_starten():
                         break
                     print("Bitte mit 'ja' oder 'nein' antworten.")
                 if escape_res.get("escaped"):
-                    print(Fore.GREEN + "Glückwunsch — du konntest entkommen.")
+                    print(Fore.GREEN + "Glückwunsch: du konntest entkommen.")
                     kurze_pause(2.0)
-                    print("ENDE — Du hast das Spiel abgeschlossen.")
+                    print("ENDE: Du hast das Spiel abgeschlossen.")
                     kurze_pause(2.0)
                     return
         else:
