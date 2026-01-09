@@ -1,0 +1,7 @@
+print ("="*30)
+print("v.0.3")
+print("ASCIINATOR ")
+print(" your ASCIl.art generator!")
+print("=" * 30)
+char = input ("enter your letter: ")
+print ("nDu hast eingegeben:", char)
