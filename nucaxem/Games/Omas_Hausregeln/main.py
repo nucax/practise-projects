@@ -80,11 +80,11 @@ def entscheidung_2_umarmen():
         ans = input("Oma zur Begrüßung umarmen? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Oma freut sich und erzählt wie sie dich vermisst hat..")
-            kurze_pause(1.6)
+            kurze_pause(2.5)
             return {"choice":"ja"}
         if ans in ("nein","n"):
             print(Fore.YELLOW + "Oma wirkt enttäuscht, sagt aber trotzdem nett Hallo zu dir.")
-            kurze_pause(1.6)
+            kurze_pause(2.5)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
 
@@ -103,7 +103,7 @@ def entscheidung_3_essen_nehmen():
             return {"choice":"ja","meal_prepared":True} #später beachten
         if ans in ("nein","n"):
             print(Fore.YELLOW + "Oma guckt ein wenig beleidigt und Cheesecake miaut laut, aber Oma sagt: Doch Kind ich mach dir etwas leckeres.")
-            kurze_pause(1.8)
+            kurze_pause(3.0)
             return {"choice":"nein","meal_prepared":True}
         print("Mit ja oder nein antworten.")
 
@@ -242,7 +242,7 @@ def entscheidung_9_aufstehen():
 # Nach zeichnungen fragen?
 def entscheidung_10_zeichnungen_fragen():
     while True:
-        ans = input("Oma nach den Zeichnungen an der Wand fragen? : ").strip().lower()
+        ans = input("Oma nach den Zeichnungen auf dem Tisch fragen? : ").strip().lower()
         if ans in ("ja","j"):
             print("Die Oma guckt ein wenig komisch und sagt: Das wirst du wahrscheinlich selbst noch herausfinden.")
             kurze_pause(1.8)
