@@ -46,13 +46,13 @@ def handle_death():
 
 
 
-
-
+# ans steht für answer und ist die variable die für die antworten benutzt wird
 
 # !!!!!!!!! Entscheidungen
 # !!!!!!!!! Entscheidungen
 # !!!!!!!!! Entscheidungen
 # Man kann immer mit "n" für "Nein" und mit "j" für "Ja"
+
 
 
 
@@ -174,7 +174,7 @@ def entscheidung_6_couch_bleiben():
 # Siebte Entscheidung
 # Tür öffnen
 def entscheidung_7_tuer_oeffnen():
-    while True:
+    while True: #unendlicher loop
         ans = input("Öffnest du die Tür? : ").strip().lower()
         if ans in ("ja","j"):
             print("Draußen steht die Katze und miaut ängstlich. Sie huscht ins Gästezimmer und versteckt sich unter dem Bett.")
@@ -197,7 +197,7 @@ def entscheidung_7_tuer_oeffnen():
 # Achte Entscheidung
 # Vorhang ziehen?
 def entscheidung_8_vorhang_ziehen():
-    while True:
+    while True: # unendlicher loop
         ans = input("Vorhang zur Seite ziehen? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.CYAN + "Du siehst aus dem Augenwinkel eine Person, die verpixelt aussieht. Sie verschwindet blitzschnell wieder.")
@@ -222,7 +222,7 @@ def entscheidung_8_vorhang_ziehen():
 # Neunte Entscheidung
 # aufstehen??
 def entscheidung_9_aufstehen():
-    while True:
+    while True: # unendlicher loop
         ans = input("Aufstehen? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du stehst auf, begrüßt deine Oma und sie macht Frühstück. Du gehst duschen, isst, und spielst bis 14 Uhr 'Mensch ärgere dich nicht' mit deiner Oma.")
