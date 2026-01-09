@@ -201,13 +201,13 @@ def entscheidung_8_vorhang_ziehen():
         ans = input("Vorhang zur Seite ziehen? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.CYAN + "Du siehst aus dem Augenwinkel eine Person, die verpixelt aussieht. Sie verschwindet blitzschnell wieder.")
-            kurze_pause(2.0)
+            kurze_pause(2.5) # pause verlängert, damit man es besser lesen kann.
             print("Du redest dir ein, dass es Einbildung war, und fällst wieder ängstlich in den Schlaf.")
-            kurze_pause(1.4)
+            kurze_pause(1.6)
             return {"choice":"ja","result":"saw_pixel_person"}
         if ans in ("nein","n"):
             print("Das Klopfen wird lauter und lauter. Du rennst zur Tür deiner Oma doch sie ist nicht da. Plötzlich klopft es hinter dir an der Wand. Du drehst dich um...")
-            kurze_pause(2.0)
+            kurze_pause(3.0) # pause nochmal verlängert, damit man es besser lesen kann.
             print(Fore.RED + "Du bist tot.")
             kurze_pause(1.2)
             return {"choice":"nein","result":"death"} # geh zu handledeath
