@@ -691,6 +691,7 @@ def hauptmenu():
         print(" | (_) | '  \\/ _` (_-< | __ / _` | || (_-< '_/ -_) _` / -_) | ' \\ ")
         print("  \\___/|_|_|_\\__,_/__/ |_||_\\__,_|\\_,_/__/_| \\___\\__, \\___|_|_||_|")
         print("                                                 |___/            ")
+        print("Auf alle fast alle Fragen musst du mit Ja oder Nein antworten.")
         print("\n1. Neues Spiel")
         print("2. Beenden")
         w = input("Auswahl: ").strip()
