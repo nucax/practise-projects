@@ -607,7 +607,7 @@ def spiel_starten():
         kurze_pause(1.7)
         print("Du kannst bis 12:00 Uhr nicht schlafen. Du entscheidest, lieber wieder nach Hause zu wollen.")
         kurze_pause(2.0)
-        print("Du gehst zur Tür. Es istalles abgeschlossen. Fenster ebenfalls. Du erinnerst dich an den Zettel mit der Haus-Skizze.")
+        print("Du gehst zur Tür. Es ist alles abgeschlossen. Fenster ebenfalls. Du erinnerst dich an den Zettel mit der Haus-Skizze.")
         kurze_pause(3.0) # pause viel länger gemacht
 
 
