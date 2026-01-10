@@ -79,7 +79,7 @@ def entscheidung_2_umarmen():
     while True:
         ans = input("Oma zur Begrüßung umarmen? : ").strip().lower()
         if ans in ("ja","j"):
-            print(Fore.GREEN + "Oma freut sich und erzählt wie sie dich vermisst hat..")
+            print(Fore.GREEN + "Oma freut sich und erzählt wie sie dich vermisst hat.")
             kurze_pause(2.5)
             return {"choice":"ja"}
         if ans in ("nein","n"):
@@ -99,7 +99,7 @@ def entscheidung_3_essen_nehmen():
         ans = input("Essen von Oma nehmen? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Oma freut sich und macht dir etwas zu essen.")
-            kurze_pause(1.6)
+            kurze_pause(2.0)
             return {"choice":"ja","meal_prepared":True} #später beachten
         if ans in ("nein","n"):
             print(Fore.YELLOW + "Oma guckt ein wenig beleidigt und Cheesecake miaut laut, aber Oma sagt: Doch Kind ich mach dir etwas leckeres.")
@@ -118,11 +118,11 @@ def entscheidung_4_ominous_food():
         ans = input("Das ominöse Essen zu sich nehmen? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du nimmst einen Bissen. Es schmeckt komisch, aber du sagst nichts.")
-            kurze_pause(1.8)
+            kurze_pause(2.4)
             return {"choice":"ja"}
         if ans in ("nein","n"):
             print("Du nimmst es nicht. Oma wirft das Essen wütend weg.")
-            kurze_pause(1.6)
+            kurze_pause(2.5)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
 
@@ -138,11 +138,11 @@ def entscheidung_5_katze_fuettern():
         ans = input("Fütterst du Cheesecake? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Die Oma ist glücklich und gibt dir das Katzenfutter und Du fütterst Cheesecake.")
-            kurze_pause(1.6)
+            kurze_pause(2.5)
             return {"choice":"ja"}
         if ans in ("nein","n"):
             print("Oma sagt das alles gut ist, aber du merkst das sie beleidigt ist.")
-            kurze_pause(1.6)
+            kurze_pause(2.6)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
 
@@ -157,7 +157,7 @@ def entscheidung_6_couch_bleiben():
         ans = input("Bleibst du bei der Oma auf der Couch? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du bleibst bei deiner Oma auf der Couch und ihr schaut weiter. Cheesecake liegt auf ihrem Kratzbaum.")
-            kurze_pause(1.6)
+            kurze_pause(2.6)
             return {"choice":"ja","time_advanced_to":"21:00"} # zeit geht zu 21 uhr
         if ans in ("nein","n"):
             print("Du gehst ins Gästezimmer und holst Handy und iPad raus. Oma hat kein Internet also liest du.")
@@ -178,13 +178,13 @@ def entscheidung_7_tuer_oeffnen():
         ans = input("Öffnest du die Tür? : ").strip().lower()
         if ans in ("ja","j"):
             print("Draußen steht die Katze und miaut ängstlich. Sie huscht ins Gästezimmer und versteckt sich unter dem Bett.")
-            kurze_pause(1.8)
+            kurze_pause(2.8)
             print("Du gehst in den dunklen Flur, hörst leise Fernseher-Geräusche und guckst durchs Wohnzimmer: Oma sitzt da, aber sie sieht komisch aus. Sie dreht dann den Kopf und lächelt wieder.")
-            kurze_pause(2.5)
+            kurze_pause(3.5)
             return {"choice":"ja","result":"saw_odd_omawatch"}
         if ans in ("nein","n"):
             print("Du öffnest nicht und schläfst irgendwann ängstlich ein.")
-            kurze_pause(1.6)
+            kurze_pause(2.6)
             return {"choice":"nein","result":"slept_fearfully"}
         print("Mit ja oder nein antworten.")
 
@@ -203,7 +203,7 @@ def entscheidung_8_vorhang_ziehen():
             print(Fore.CYAN + "Du siehst aus dem Augenwinkel eine Person, die verpixelt aussieht. Sie verschwindet blitzschnell wieder.")
             kurze_pause(2.5) # pause verlängert, damit man es besser lesen kann.
             print("Du redest dir ein, dass es Einbildung war, und fällst wieder ängstlich in den Schlaf.")
-            kurze_pause(1.6)
+            kurze_pause(2.6)
             return {"choice":"ja","result":"saw_pixel_person"}
         if ans in ("nein","n"):
             print("Das Klopfen wird lauter und lauter. Du rennst zur Tür deiner Oma doch sie ist nicht da. Plötzlich klopft es hinter dir an der Wand. Du drehst dich um...")
@@ -226,11 +226,11 @@ def entscheidung_9_aufstehen():
         ans = input("Aufstehen? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du stehst auf, begrüßt deine Oma und sie macht Frühstück. Du gehst duschen, isst, und spielst bis 14 Uhr 'Mensch ärgere dich nicht' mit deiner Oma.")
-            kurze_pause(2.0)
+            kurze_pause(2.5)
             return {"choice":"auf"}
         if ans in ("nein","n"):
             print("Du schläfst weiter bis 14:00 Uhr. Die Oma weckt dich sanft. Das Licht flackert kurz, aber du denkst dir nichts dabei.")
-            kurze_pause(1.8)
+            kurze_pause(2.5)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
 
@@ -245,11 +245,11 @@ def entscheidung_10_zeichnungen_fragen():
         ans = input("Oma nach den Zeichnungen auf dem Tisch fragen? : ").strip().lower()
         if ans in ("ja","j"):
             print("Die Oma guckt ein wenig komisch und sagt: Das wirst du wahrscheinlich selbst noch herausfinden.")
-            kurze_pause(1.8)
+            kurze_pause(2.8)
             return {"choice":"ja","hint_received":True} # so das einem später hilft
         if ans in ("nein","n"):
             print("Du fragst nicht.")
-            kurze_pause(1.4)
+            kurze_pause(2.4)
             return {"choice":"nein","hint_received":False} # man hat den hinweis nicht bekommen
         print("Mit ja oder nein antworten.")
 
@@ -265,11 +265,11 @@ def entscheidung_11_mit_oma_serie_gucken():
         ans = input("Mit Oma Serie gucken? : ").strip().lower()
         if ans in ("ja","j"):
             print("Du schaust mit Oma die Serie. Es wird schnell 21:00 Uhr.")
-            kurze_pause(1.6)
+            kurze_pause(2.6)
             return {"choice":"ja","time_advanced_to":"21:00"}
         if ans in ("nein","n"):
             print("Du sagst nein — die Oma macht dir etwas zu essen.")
-            kurze_pause(1.6)
+            kurze_pause(2.6)
             return {"choice":"nein","time_advanced_to":"17:00"}
         print("Mit ja oder nein antworten.")
 
@@ -286,7 +286,7 @@ def entscheidung_12_was_essen():
     if not ans:
         ans = "etwas" # zur sicherheit falls der user den input leer lässt
     print(f"Die Oma macht dir {ans} und ihr esst zusammen. Es schmeckt wieder etwas seltsam aber du traust dich nicht es anzusprechen.")
-    kurze_pause(2.0)
+    kurze_pause(2.5)
     return {"choice":ans}
 
 
@@ -301,11 +301,11 @@ def entscheidung_13_wochenende_gefaellt():
         ans = input("Gefällt dir das Wochenende bisher? : ").strip().lower()
         if ans in ("ja","j"):
             print(Fore.GREEN + "Die Oma lächelt zufrieden und freut sich.")
-            kurze_pause(1.6)
+            kurze_pause(2.6)
             return {"choice":"ja"}
         if ans in ("nein","n"):
             print(Fore.RED + "Die Oma ist traurig.")
-            kurze_pause(1.0)
+            kurze_pause(2.0)
             print(Fore.YELLOW + "Sie starrt dich merkwürdig durchdringend an.")
             kurze_pause(2.2)
             print(Fore.YELLOW + "Der Ton ihrer Stimme lässt dich unwohl fühlen")
@@ -379,14 +379,14 @@ def szene_hintertuer(found_bag=False):
     if found_bag:
         # Gutes (ein bisschen besseres) ende
         print("Du öffnest die Hintertür vorsichtig. Es ist sehr kalt, aber du bist draußen.")
-        kurze_pause(1.6)
+        kurze_pause(2.6)
         print(Fore.GREEN + "Du hast deine Tasche und bist entkommen! Spielende: Glückliches Ende.")
         kurze_pause(4.0)
         return {"escaped":True}
     else:
         # Normales ende
         print("Du öffnest die Hintertür.. doch du hast deine Tasche vergessen.")
-        kurze_pause(1.4)
+        kurze_pause(2.4)
         print("Trotzdem schaffst du es hinaus. Du spürst die Kälte aber erreichst die Freiheit.")
         kurze_pause(2.0)
         print(Fore.GREEN + "Du bist entkommen.. Spielende.")
@@ -412,7 +412,7 @@ def spiel_starten():
         
         # Szene 1
         print("Du bist ein vierzehnjähriges Mädchen aus Berlin, und du willst deine Oma in Naumburg besuchen.")
-        kurze_pause(1.2)
+        kurze_pause(2.2)
         res1 = entscheidung_1_einsteigen()
         if res1["choice"] == "nein":
             # erste entscheidung nein als antwort gegeben
@@ -425,11 +425,11 @@ def spiel_starten():
         
         bildschirm_leeren()
         print("Du sitzt im Zug und fährst wie geplant zu deiner Oma.")
-        kurze_pause(1.1)
+        kurze_pause(2.1)
         print("Du kommst an, steigst aus dem Zug und läufst das letzte Stück zu deiner Oma.")
-        kurze_pause(1.1)
+        kurze_pause(2.1)
         print("Du klingelst, die Oma öffnet. Ihre Katze Cheesecake springt freudig entgegen.")
-        kurze_pause(1.4)
+        kurze_pause(2.4)
 
 
 
@@ -444,9 +444,9 @@ def spiel_starten():
         # weiter im Haus
         bildschirm_leeren() # noch hinzugefügt, damit es übersichtlicher ist!
         print("Das Mädchen und die Oma und die Katze gehen hinein. Du bringst deine Übernachtungssachen für 3 Nächte ins Gästezimmer..")
-        kurze_pause(1.6)
+        kurze_pause(2.6)
         print("Oma fragt, ob du etwas essen oder trinken möchtest.")
-        kurze_pause(1.2)
+        kurze_pause(2.2)
 
 
 
@@ -477,11 +477,11 @@ def spiel_starten():
         
         # 16:00 Uhr Serienzeit
         print(Fore.CYAN + "Es ist jetzt 16:00 Uhr.")
-        kurze_pause(0.7)
+        kurze_pause(1.7)
         print("Du und deine Oma schauen eine Serie. Cheesecake kuschelt sich auf deinen Schoß.")
-        kurze_pause(1.2)
+        kurze_pause(2.2)
         print(Fore.CYAN + "Die Zeit verging schnell. Jetzt ist es 19:00 Uhr.")
-        kurze_pause(1.2)
+        kurze_pause(1.9)
 
 
 
@@ -509,7 +509,7 @@ def spiel_starten():
             print(Fore.CYAN + "Es ist nun 20:00 Uhr.")
             kurze_pause(0.9)
             print("Du liest, als du plötzlich ein lautes Kratzen an der Tür hörst.")
-            kurze_pause(0.9)
+            kurze_pause(1.9)
             res7 = entscheidung_7_tuer_oeffnen()
             if res7["choice"] == "ja":
                 # saw odd oma
@@ -532,7 +532,7 @@ def spiel_starten():
         if not skip_door_event:
             res8 = entscheidung_8_vorhang_ziehen()
             if res8.get("result") == "death":
-                # death -> restart
+                # tot -> und neustarten
                 outcome = handle_death()
                 if outcome == 'restart':
                     continue  # Alles Weitere überspringen und von vorne anfangen basically
@@ -548,7 +548,7 @@ def spiel_starten():
         # Nächster Morgen
         bildschirm_leeren()
         print(Fore.CYAN + "Nächster Morgen. Es ist 11:00 Uhr.")
-        kurze_pause(1.0)
+        kurze_pause(1.5)
         res9 = entscheidung_9_aufstehen()
 
 
@@ -573,7 +573,7 @@ def spiel_starten():
         print("Es ist nun 15:00 Uhr. Nach dem Mittagessen fragst du deine Oma ob sie lust hat spatzieren zu gehen..")
         kurze_pause(1.0)
         print("Sie lacht merkwürdig und sagt trocken nein. Du findest das komisch. Willst aber nichts sagen.")
-        kurze_pause(1.1)
+        kurze_pause(2.1)
 
 
 
@@ -634,7 +634,7 @@ def spiel_starten():
             print("Du testest das Fenster: passt nicht.")
             kurze_pause(0.8)
             print("Plötzlich hörst du Schritte im Flur.")
-            kurze_pause(0.9)
+            kurze_pause(0.8)
             versteck_res = entscheidung_verstecken_bei_schritten()
             if versteck_res["result"] == "death":
                 outcome = handle_death() # gestorben
