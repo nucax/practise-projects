@@ -570,7 +570,8 @@ def spiel_starten():
 
         
         # 15:00 Spaziergang / Serie
-        print("Es ist nun 15:00 Uhr. Nach dem Mittagessen fragst du deine Oma ob sie lust hat spatzieren zu gehen..")
+        print(Fore.CYAN + "Es ist nun 15:00 Uhr.")
+        print("Nach dem Mittagessen fragst du deine Oma ob sie lust hat spatzieren zu gehen..")
         kurze_pause(1.0)
         print("Sie lacht merkwürdig und sagt trocken nein. Du findest das komisch. Willst aber nichts sagen.")
         kurze_pause(2.1)
