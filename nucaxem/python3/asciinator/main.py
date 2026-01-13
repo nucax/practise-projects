@@ -31,4 +31,4 @@ for key, art in db.items():
         break
 
 if not found:
-    print("versuvh mal was anderes")
+    print("versuch etwas anderes")
