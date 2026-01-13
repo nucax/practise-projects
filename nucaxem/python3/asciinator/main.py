@@ -1,4 +1,3 @@
-
 import json
 
 print("=" * 30)
@@ -17,7 +16,6 @@ with open("db.json", "r", encoding="utf-8") as f:
 char = input("enter your letter: ").strip()
 
 print("\your input was :", char)
-print(.)
 
 found = False
 
