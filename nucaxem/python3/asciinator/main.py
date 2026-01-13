@@ -1,7 +1,7 @@
 import json
 
 print("=" * 30)
-print("v.0.3")
+print("v.0.4")
 print("ASCIINATOR")
 print("made by joel ganser and Jann Lübben")
 print("your ASCII Art generator!")
@@ -14,8 +14,7 @@ with open("db.json", "r", encoding="utf-8") as f:
     db = json.load(f)
 
 char = input("enter your letter: ").strip()
-
-print("\your input was :", char)
+print("your input was :", char)
 
 found = False
 
