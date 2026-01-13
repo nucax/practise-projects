@@ -64,7 +64,7 @@ def entscheidung_1_einsteigen():
         if ans in ("ja","j"):
             return {"choice":"ja"}
         if ans in ("nein","n"):
-            print("Duu kehrst nach Berlin zurück.")
+            print("Du kehrst nach Berlin zurück.")
             kurze_pause(1.8)
             return {"choice":"nein"}
         print("Mit ja oder nein antworten.")
@@ -339,9 +339,9 @@ def entscheidung_schluessel_suchen():
             return {"choice":"1","found_key":True}
         if ans == "2":
             # schlüssel nicht gefunden und death returned
-            print("Du gehst zum Schreibtisch. Als du dich vorbeugst, knarrt der Stuhl — zu spät.")
+            print("Du gehst zum Schreibtisch. Als du dich vorbeugst, knarrt der Stuhl... zu spät.")
             kurze_pause(1.0)
-            print(Fore.RED + "Die Oma steht plötzlich auf, sieht dich, und du bist tot.")
+            print(Fore.RED + "Die Oma steht plötzlich auf, sieht dich, und deine Oma sagt: du bist tot.")
             kurze_pause(1.0)
             return {"choice":"2","found_key":False,"death":True} # tot
         if ans == "3":
@@ -571,7 +571,7 @@ def spiel_starten():
         
         # 15:00 Spaziergang / Serie
         print(Fore.CYAN + "Es ist nun 15:00 Uhr.")
-        print("Nach dem Mittagessen fragst du deine Oma ob sie lust hat spatzieren zu gehen..")
+        print("Nach dem Mittagessen fragst du deine Oma, ob sie Lust hat spazieren zu gehen..")
         kurze_pause(1.0)
         print("Sie lacht merkwürdig und sagt trocken nein. Du findest das komisch. Willst aber nichts sagen.")
         kurze_pause(2.1)
@@ -646,7 +646,7 @@ def spiel_starten():
                 # Hintertür szene
                 # fragen ob der user die tasche vergessen hat damit es noch interaktiver ist
                 while True:
-                    bag_ans = input("Hast du deine Tasche dabei?: ").strip().lower() # wichtig
+                    bag_ans = input("Nimmst du deine Tasche mit?: ").strip().lower() # wichtig
                     if bag_ans in ("ja","j"):
                         escape_res = szene_hintertuer(found_bag=True)
                         break
