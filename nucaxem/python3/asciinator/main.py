@@ -1,3 +1,4 @@
+# lol fix utf8
 import json
 
 print("=" * 30)
@@ -11,7 +12,7 @@ with open("db.json", "r", encoding="utf-8") as f:
     db = json.load(f)
 
 while True:
-    char = input("\nenter your letter (or 'exit'): ").strip()
+    char = input("\nenter your letter (or exit): ").strip()
 
     if char.lower() == "exit":
         print("bye")
