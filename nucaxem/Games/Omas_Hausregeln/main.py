@@ -7,8 +7,6 @@
 
 
 
-
-
 # alles notwendige importieren
 import os
 import time
