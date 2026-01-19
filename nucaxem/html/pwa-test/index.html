@@ -76,7 +76,7 @@
   </div>
 
   <script>
-    let steps = [
+    const steps = [
       "Initializing exploit…",
       "Patching kernel…",
       "Escalating privileges…",
@@ -87,19 +87,40 @@
 
     function startJailbreak() {
       document.getElementById("log").style.display = "block";
-      let bar = document.getElementById("bar");
-      let status = document.getElementById("status");
+
+      const bar = document.getElementById("bar");
+      const status = document.getElementById("status");
+
       let i = 0;
 
-      let interval = setInterval(() => {
+      const interval = setInterval(() => {
         status.textContent = steps[i];
         bar.style.width = ((i + 1) / steps.length * 100) + "%";
         i++;
 
         if (i === steps.length) {
           clearInterval(interval);
+          setTimeout(showPostSteps, 800);
         }
       }, 800);
+    }
+
+    function showPostSteps() {
+      setTimeout(() => {
+        alert("Restart required to continue jailbreak.");
+      }, 500);
+
+      setTimeout(() => {
+        alert("Respringing device…");
+      }, 1800);
+
+      setTimeout(() => {
+        alert("Activating jailbreak environment…");
+      }, 3000);
+
+      setTimeout(() => {
+        alert("Jailbreak activated successfully.");
+      }, 4200);
     }
 
     if ("serviceWorker" in navigator) {
