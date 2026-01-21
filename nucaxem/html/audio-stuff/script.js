@@ -1,8 +1,17 @@
 const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log: true });
+
+const ffmpeg = createFFmpeg({
+  log: true,
+  progress: ({ ratio }) => {
+    const percent = Math.round(ratio * 100);
+    progressBar.style.width = percent + "%";
+    statusText.textContent = `Processing: ${percent}%`;
+  }
+});
 
 const videoInput = document.getElementById("videoInput");
 const extractBtn = document.getElementById("extractBtn");
+const progressBar = document.getElementById("progressBar");
 const statusText = document.getElementById("status");
 const downloadLink = document.getElementById("downloadLink");
 
@@ -12,29 +21,33 @@ extractBtn.onclick = async () => {
     return;
   }
 
-  const videoFile = videoInput.files[0];
-
+  progressBar.style.width = "0%";
+  downloadLink.style.display = "none";
   statusText.textContent = "Loading FFmpeg...";
+
   if (!ffmpeg.isLoaded()) {
     await ffmpeg.load();
   }
 
-  statusText.textContent = "Processing video...";
+  const file = videoInput.files[0];
 
-  ffmpeg.FS("writeFile", "input.mp4", await fetchFile(videoFile));
+  statusText.textContent = "Reading video...";
+  ffmpeg.FS("writeFile", "input.mp4", await fetchFile(file));
 
+  statusText.textContent = "Extracting audio...";
   await ffmpeg.run(
     "-i", "input.mp4",
-    "-q:a", "0",
-    "-map", "a",
+    "-vn",
+    "-acodec", "libmp3lame",
+    "-ab", "192k",
     "output.mp3"
   );
 
   const data = ffmpeg.FS("readFile", "output.mp3");
   const audioBlob = new Blob([data.buffer], { type: "audio/mp3" });
-  const audioUrl = URL.createObjectURL(audioBlob);
+  const audioURL = URL.createObjectURL(audioBlob);
 
-  downloadLink.href = audioUrl;
+  downloadLink.href = audioURL;
   downloadLink.style.display = "block";
   statusText.textContent = "Done";
 };
