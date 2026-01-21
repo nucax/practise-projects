@@ -2,23 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Audio Extractor</title>
+  <title>Video to Audio Extractor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
-    <h1>Video to Audio Extractor</h1>
+    <h1>Video to Audio</h1>
 
     <input type="file" id="videoInput" accept="video/*">
     <button id="extractBtn">Extract Audio</button>
 
-    <p id="status"></p>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
 
-    <a id="downloadLink" style="display:none;" download="audio.mp3">
-      Download Audio
-    </a>
+    <p id="status">Idle</p>
+
+    <a id="downloadLink" download="audio.mp3">Download Audio</a>
   </div>
 
   <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js"></script>
