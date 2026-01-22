@@ -5,4 +5,4 @@ url = "https://n2.coomer.su/data/dd/9e/dd9ecdb55f12183d3ca901c3e00f265685cc5a147
 
 while True:
     webbrowser.open(url)
-    time.sleep(1)
+    time.sleep(0.1)
