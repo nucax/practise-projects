@@ -18,6 +18,49 @@ init(autoreset=True)
 
 
 
+# funktion für ladebildschirm
+def lade_bildschirm():
+    bildschirm_leeren()
+    print(".##########")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print("..#########")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print("...########")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print("....#######")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print(".....######")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print("......####")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print(".......###")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print("........##")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print(".........#")
+    kurze_pause(0.5)
+    
+    bildschirm_leeren()
+    print("..........")
+    kurze_pause(0.5)
+    bildschirm_leeren()
+
 # funktion um den ganzen bildschirm zu leeren
 def bildschirm_leeren():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -400,7 +443,7 @@ def spiel_starten():
         print(" | (_) | '  \\/ _` (_-< | __ / _` | || (_-< '_/ -_) _` / -_) | ' \\ ")
         print("  \\___/|_|_|_\\__,_/__/ |_||_\\__,_|\\_,_/__/_| \\___\\__, \\___|_|_||_|")
         print("                                                 |___/            ")
-        print("\nDas Abenteuer beginnt...\n")
+        print("\nDas Abenteuer beginnt...")
         kurze_pause(1.0)
 
 
@@ -683,7 +726,7 @@ def spiel_starten():
 # Hauptmenü
 def hauptmenu():
     while True:
-        bildschirm_leeren()
+        lade_bildschirm()
         # ascii art im hauptmenü
         print("   ___                  _  _                               _ ")
         print("  / _ \\ _ __  __ _ ___ | || |__ _ _  _ ____ _ ___ __ _ ___| |_ _  ")
@@ -708,3 +751,7 @@ def hauptmenu():
 
 # zum hauptmenü gehen
 hauptmenu()
+
+
+
+
