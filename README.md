@@ -1,6 +1,3 @@
-# All Languages
-![All Repo Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=nucax&repo=practise-projects&langs_count=200&layout=compact&theme=dark)
-
 # website links
 https://nucax.github.io/practise-projects/nucaxem/html/nucaxem-tools.html
 
