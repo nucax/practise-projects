@@ -1,119 +1,149 @@
-# made by someone else, fixed by me :)
-
-
-
-
-import pygame
 import math
+import os
+import sys
+import tty
+import termios
+import time
 
-pygame.init()
+# colors lmao
+RESET = "\033[0m"
+CEILING_COLOR = "\033[38;5;240m"
+FLOOR_COLOR = "\033[38;5;236m"
 
-blick_genauigkeit = 0.02
-laenge, hoehe = 800, 600
+def wall_color(distance):
+    if distance < 2:
+        return "\033[38;5;196m"  # red
+    elif distance < 4:
+        return "\033[38;5;208m"  # orange
+    elif distance < 6:
+        return "\033[38;5;226m"  # yellow
+    elif distance < 8:
+        return "\033[38;5;118m"  # green
+    elif distance < 12:
+        return "\033[38;5;39m"   # blue
+    else:
+        return "\033[38;5;240m"  # gray
 
-display = pygame.display.set_mode((laenge, hoehe))
-pygame.display.set_caption("Catvasion")
-
-ausfuehren = True
-uhr = pygame.time.Clock()
-
-weltenkarte = [
-    [1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,0,1,0,0,1,0,0,0,1,0,1],
-    [1,0,0,0,1,1,0,1,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1]
+# map obviously you can read it under me
+game_map = [
+    "########################################",
+    "#...............#......................#",
+    "#..######.......#...........########...#",
+    "#...............#......................#",
+    "#...........##########.................#",
+    "#.................................#....#",
+    "#......#########..................#....#",
+    "#....................#####........#....#",
+    "#.........................#............#",
+    "#...........######........#............#",
+    "#.........................#............#",
+    "#....#....................#............#",
+    "#....#..........###########............#",
+    "#....#.................................#",
+    "#....#########.........................#",
+    "#......................................#",
+    "#......................######..........#",
+    "#......................................#",
+    "#..........################............#",
+    "#......................................#",
+    "########################################"
 ]
 
-sicht = 70
-x_position, y_position = 1.5, 1.5
-radiant = 0
+MAP_WIDTH = len(game_map[0])
+MAP_HEIGHT = len(game_map)
 
-bewegungs_schnelligkeit = 0.1
-sensitivity = 0.05
+# player shit
+player_x = 3.5
+player_y = 3.5
+player_angle = 0.0
 
-lk = rk = uk = dk = schiessen = False
+FOV = math.pi / 3
+MAX_DEPTH = 20
+SCREEN_WIDTH = 100
+SCREEN_HEIGHT = 30
 
-while ausfuehren:
+MOVE_SPEED = 0.25
+TURN_SPEED = 0.12
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            ausfuehren = False
+# helpers because it wouldnt work properly
+def get_key():
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        return sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                lk = True
-            elif event.key == pygame.K_RIGHT:
-                rk = True
-            elif event.key == pygame.K_UP:
-                uk = True
-            elif event.key == pygame.K_DOWN:
-                dk = True
-            elif event.key == pygame.K_SPACE:
-                schiessen = True
+def clear_screen():
+    os.system("clear")
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                lk = False
-            elif event.key == pygame.K_RIGHT:
-                rk = False
-            elif event.key == pygame.K_UP:
-                uk = False
-            elif event.key == pygame.K_DOWN:
-                dk = False
-            elif event.key == pygame.K_SPACE:
-                schiessen = False
+# main game loop 
+while True:
+    screen_buffer = [""] * SCREEN_HEIGHT
 
-    x, y = x_position, y_position
+    for col in range(SCREEN_WIDTH):
+        ray_angle = (player_angle - FOV / 2) + (col / SCREEN_WIDTH) * FOV
+        distance = 0
+        hit_wall = False
 
-    if lk:
-        x += bewegungs_schnelligkeit * math.cos(radiant)
-        y += bewegungs_schnelligkeit * math.sin(radiant)
+        eye_x = math.cos(ray_angle)
+        eye_y = math.sin(ray_angle)
 
-    if rk:
-        x -= bewegungs_schnelligkeit * math.cos(radiant)
-        y -= bewegungs_schnelligkeit * math.sin(radiant)
+        while not hit_wall and distance < MAX_DEPTH:
+            distance += 0.05
+            test_x = int(player_x + eye_x * distance)
+            test_y = int(player_y + eye_y * distance)
 
-    if uk:
-        radiant -= sensitivity
+            if test_x < 0 or test_x >= MAP_WIDTH or test_y < 0 or test_y >= MAP_HEIGHT:
+                hit_wall = True
+                distance = MAX_DEPTH
+            elif game_map[test_y][test_x] == "#":
+                hit_wall = True
 
-    if dk:
-        radiant += sensitivity
+        ceiling = int(SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / distance)
+        floor = SCREEN_HEIGHT - ceiling
+        col_color = wall_color(distance)
 
-    if weltenkarte[int(y)][int(x)] == 0:
-        x_position, y_position = x, y
+        for row in range(SCREEN_HEIGHT):
+            if row < ceiling:
+                screen_buffer[row] += CEILING_COLOR + " " + RESET
+            elif ceiling <= row <= floor:
+                if distance <= MAX_DEPTH / 4:
+                    shade = "█"
+                elif distance < MAX_DEPTH / 3:
+                    shade = "▓"
+                elif distance < MAX_DEPTH / 2:
+                    shade = "▒"
+                else:
+                    shade = "░"
+                screen_buffer[row] += col_color + shade + RESET
+            else:
+                screen_buffer[row] += FLOOR_COLOR + "·" + RESET
 
-    display.fill((0, 0, 0))
+    clear_screen()
+    for line in screen_buffer:
+        print(line)
 
-    for sichtwert in range(sicht):
-        radiant2 = radiant + math.radians(sichtwert - sicht / 2)
+    print("\nControls: W/S = move, A/D = turn, Q = quit")
 
-        x, y = x_position, y_position
-        sin_a = blick_genauigkeit * math.sin(radiant2)
-        cos_a = blick_genauigkeit * math.cos(radiant2)
+    key = get_key().lower()
 
-        dist = 0
+    if key == "q":
+        break
+    elif key == "a":
+        player_angle -= TURN_SPEED
+    elif key == "d":
+        player_angle += TURN_SPEED
+    elif key == "w":
+        new_x = player_x + math.cos(player_angle) * MOVE_SPEED
+        new_y = player_y + math.sin(player_angle) * MOVE_SPEED
+        if game_map[int(new_y)][int(new_x)] != "#":
+            player_x, player_y = new_x, new_y
+    elif key == "s":
+        new_x = player_x - math.cos(player_angle) * MOVE_SPEED
+        new_y = player_y - math.sin(player_angle) * MOVE_SPEED
+        if game_map[int(new_y)][int(new_x)] != "#":
+            player_x, player_y = new_x, new_y
 
-        while True:
-            x += cos_a
-            y += sin_a
-            dist += 1
-
-            if weltenkarte[int(y)][int(x)] != 0:
-                break
-
-        hoehe_linie = 600 / (dist * 0.02)
-        farbe = 255 / (1 + dist * dist * 0.0001)
-
-        pygame.draw.line(
-            display,
-            (farbe, farbe, farbe),
-            (sichtwert * laenge / sicht, hoehe / 2 + hoehe_linie / 2),
-            (sichtwert * laenge / sicht, hoehe / 2 - hoehe_linie / 2),
-            int(laenge / sicht) + 1
-        )
-
-    pygame.display.flip()
-    uhr.tick(60)
-
-pygame.quit()
+    time.sleep(0.01) # ezRefresh
