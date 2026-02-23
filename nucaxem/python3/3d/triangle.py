@@ -47,16 +47,38 @@ def project(p, width, height, fov):
     return (sx, sy, z)
 
 # ===============================
-# Triangle
+# Cube Definition
 # ===============================
 
-triangle = [
-    (-1, -1, 0),
-    ( 1, -1, 0),
-    ( 0,  1, 0)
+# 8 vertices of a cube
+cube_vertices = [
+    (-1, -1, -1),
+    ( 1, -1, -1),
+    ( 1,  1, -1),
+    (-1,  1, -1),
+    (-1, -1,  1),
+    ( 1, -1,  1),
+    ( 1,  1,  1),
+    (-1,  1,  1),
 ]
 
-light_dir = vec_normalize((0, 0, -1))
+# 12 triangles (2 per face)
+cube_triangles = [
+    # Front
+    (0,1,2), (0,2,3),
+    # Back
+    (5,4,7), (5,7,6),
+    # Left
+    (4,0,3), (4,3,7),
+    # Right
+    (1,5,6), (1,6,2),
+    # Top
+    (3,2,6), (3,6,7),
+    # Bottom
+    (4,5,1), (4,1,0)
+]
+
+light_dir = vec_normalize((0,0,-1))
 shade_chars = " .:-=+*#%@"
 
 # ===============================
@@ -116,35 +138,33 @@ def main(stdscr):
     while True:
         height, width = stdscr.getmaxyx()
         stdscr.clear()
-
         zbuffer = [[float("inf") for _ in range(width)] for _ in range(height)]
 
-        # Rotate
-        rotated = []
-        for v in triangle:
+        # Rotate and move cube
+        rotated_vertices = []
+        for v in cube_vertices:
             r = rotate_y(v, angle)
-            r = rotate_x(r, angle * 0.5)
-            rotated.append((r[0], r[1], r[2] + 3))
+            r = rotate_x(r, angle*0.5)
+            rotated_vertices.append((r[0], r[1], r[2]+5))
 
-        # Normal
-        line1 = vec_sub(rotated[1], rotated[0])
-        line2 = vec_sub(rotated[2], rotated[0])
-        normal = vec_normalize(vec_cross(line1, line2))
+        # Draw all triangles
+        for tri in cube_triangles:
+            v0 = rotated_vertices[tri[0]]
+            v1 = rotated_vertices[tri[1]]
+            v2 = rotated_vertices[tri[2]]
 
-        # Backface culling
-        if vec_dot(normal, (0,0,1)) < 0:
+            # Normal
+            line1 = vec_sub(v1, v0)
+            line2 = vec_sub(v2, v0)
+            normal = vec_normalize(vec_cross(line1, line2))
 
-            intensity = max(0, vec_dot(normal, light_dir))
-
-            projected = [
-                project(v, width, height, fov)
-                for v in rotated
-            ]
-
-            draw_triangle(stdscr, projected, intensity, zbuffer)
+            # Backface culling
+            if vec_dot(normal, (0,0,-1)) < 0:
+                intensity = max(0, vec_dot(normal, light_dir))
+                projected = [project(v, width, height, fov) for v in [v0,v1,v2]]
+                draw_triangle(stdscr, projected, intensity, zbuffer)
 
         stdscr.refresh()
-
         angle += 0.03
         time.sleep(0.016)
 
