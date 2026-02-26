@@ -20,7 +20,7 @@ class MacroManager:
 
         self.load()
 
-    # ---------- SAVE / LOAD ----------
+    # save and load macros to a file
     def save(self):
         with open(SAVE_FILE, "w") as f:
             json.dump(self.macros, f, default=str)
@@ -32,7 +32,7 @@ class MacroManager:
         except:
             pass
 
-    # ---------- RECORD ----------
+    # this will record all actions until stop_recording is called. The actions are stored as a list of tuples (time, action_type, data) where time is the time in seconds since the start of the recording, action_type is a string representing the type of action (e.g. "kp" for key press, "kr" for key release, "mc" for mouse click, "mm" for mouse move, "ms" for mouse scroll), and data is the relevant data for the action (e.g. the key for key actions, the position and button for mouse click, etc.). The recorded actions can then be played back in sequence with the correct timing when play() is called.
     def start_recording(self, index):
         self.recording_index = index
         self.macros[index]["actions"] = []
@@ -50,7 +50,7 @@ class MacroManager:
             t = time.time() - self.start_time
             self.macros[self.recording_index]["actions"].append((t, action_type, data))
 
-    # ---------- PLAY ----------
+    # play the recorded actions for the macro at the given index. The actions will be executed in sequence with the correct timing. For key actions, it will use pynput's keyboard controller to simulate key presses and releases. For mouse actions, it will use pynput's mouse controller to simulate mouse clicks, movements, and scrolls. After all actions are played, it will update the status to "Done".
     def play(self, index):
         actions = self.macros[index]["actions"]
         if not actions:
@@ -82,7 +82,7 @@ class MacroManager:
 
 manager = MacroManager()
 
-# ---------- GLOBAL LISTENERS ----------
+# global listener for keyboard and mouse events. It will call the appropriate methods in the MacroManager to record the actions when a macro is being recorded, and to trigger macro playback when a hotkey is pressed. The keyboard listener will listen for key presses and releases, while the mouse listener will listen for clicks, movements, and scrolls. Both listeners will run in separate threads to avoid blocking the main UI thread.
 def input_listener():
     def on_press(key):
         if manager.recording:
@@ -110,7 +110,7 @@ def input_listener():
 
 threading.Thread(target=input_listener, daemon=True).start()
 
-# ---------- UI ----------
+# this is the part of the ui. It uses tkinter to create a simple interface that displays the list of macros, allows the user to select a macro and perform actions such as recording, stopping, renaming, and setting hotkeys. The macros are displayed in a treeview widget, and the buttons for actions are placed below it. The status of the current action (e.g. recording, playing, stopped) is displayed at the top. The UI will update in real-time as the user interacts with it and as macros are played back.
 root = Tk()
 root.title("Macro Manager")
 
@@ -131,7 +131,7 @@ def refresh():
 
 refresh()
 
-# ---------- ACTIONS ----------
+# actions for buttons and treeview. The "Record" button will start recording a new macro for the selected macro slot, while the "Stop" button will stop the recording. The "Rename" button will prompt the user to enter a new name for the selected macro, and the "Set Hotkey" button will prompt the user to enter a new hotkey for the selected macro. The treeview will also allow the user to double-click on a macro to play it back immediately. All changes made through the UI will be saved to the file and reflected in the displayed list of macros.
 def record_macro():
     sel = tree.selection()
     if not sel: return
@@ -178,4 +178,8 @@ Button(btns, text="Set Hotkey", command=set_hotkey).grid(row=0, column=3, padx=5
 
 tree.bind("<Double-1>", play_macro)
 
+
+
+
+# the main loop of the tkinter application. It will start the UI and keep it running until the user closes the window. The input listeners for keyboard and mouse events will continue to run in the background while the UI is active, allowing the user to record and play macros seamlessly.
 root.mainloop()
