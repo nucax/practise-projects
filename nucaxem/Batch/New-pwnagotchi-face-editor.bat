@@ -281,7 +281,7 @@ fs.memory.mounts.data.zram = true
 fs.memory.mounts.data.rsync = true
 '@
 
-# Replace placeholders with values from environment variables set by the batch file
+# Replace placeholders with values from environment variables set by the batch file (escaping any special characters to avoid breaking the config format)
 $content = $content -replace '__LOOK_R__', [System.Text.RegularExpressions.Regex]::Escape($env:LOOK_R)
 $content = $content -replace '__LOOK_L__', [System.Text.RegularExpressions.Regex]::Escape($env:LOOK_L)
 $content = $content -replace '__LOOK_R_HAPPY__', [System.Text.RegularExpressions.Regex]::Escape($env:LOOK_R_HAPPY)
@@ -317,5 +317,6 @@ Write-Output 'config.toml written to the current folder.'
 echo Done. config.toml created in this folder. You can now copy it to your pwnagotchi device and replace the existing config.toml with it. Make sure to backup your original config.toml before replacing it, as this script will overwrite it without any confirmation.
 echo If your pwnagotchi is running, you will need to restart it for the changes to take effect. You can do this by rebooting the device or by running 'sudo systemctl restart pwnagotchi' if you have SSH access.
 echo If you are using a version over 2.9.5.3 then this will break your pwnagotchi because of the new config format, so do not use this script if you are on a newer version. It is only intended as a quick hack to generate a config.toml with custom faces on Windows for older versions of pwnagotchi. For newer versions, you will need to manually edit the config.toml file or use a different method to generate it.
+echo If you liked this script, consider starring the repository and sharing it with others who might find it useful. I may update this script in the future to add more features or improve the user experience, so stay tuned for updates. If you have any suggestions or feedback, feel free to open an issue or submit a pull request on the GitHub repository.
 pause
 endlocal
