@@ -1,13 +1,23 @@
+# default env
+
+
+# for drawing
 import curses
+
+# for building the cube
 import math
+
+# for showing
 import time
 
-# ===============================
-# Math
-# ===============================
 
+
+# Math
 def vec_sub(a, b):
     return (a[0]-b[0], a[1]-b[1], a[2]-b[2])
+
+
+
 
 def vec_cross(a, b):
     return (
@@ -16,8 +26,12 @@ def vec_cross(a, b):
         a[0]*b[1] - a[1]*b[0]
     )
 
+
+
 def vec_dot(a, b):
     return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]
+
+
 
 def vec_normalize(v):
     length = math.sqrt(vec_dot(v, v))
@@ -25,17 +39,25 @@ def vec_normalize(v):
         return (0,0,0)
     return (v[0]/length, v[1]/length, v[2]/length)
 
+
+
 def rotate_y(p, angle):
     x,y,z = p
     c = math.cos(angle)
     s = math.sin(angle)
     return (x*c + z*s, y, -x*s + z*c)
 
+
+
 def rotate_x(p, angle):
     x,y,z = p
     c = math.cos(angle)
     s = math.sin(angle)
     return (x, y*c - z*s, y*s + z*c)
+
+
+
+
 
 def project(p, width, height, fov):
     x,y,z = p
@@ -49,6 +71,8 @@ def project(p, width, height, fov):
 # cube definition
 
 
+
+
 cube_vertices = [
     (-1, -1, -1),
     ( 1, -1, -1),
@@ -59,6 +83,9 @@ cube_vertices = [
     ( 1,  1,  1),
     (-1,  1,  1),
 ]
+
+
+
 
 # 12 triangles (2 per face)
 cube_triangles = [
@@ -78,6 +105,14 @@ cube_triangles = [
 
 light_dir = vec_normalize((0,0,-1))
 shade_chars = " .:-=+*#%@"
+
+
+
+
+
+
+
+
 
 # rasterizer
 
@@ -164,4 +199,6 @@ def main(stdscr):
         if stdscr.getch() == 27:
             break
 
+
+# infinite loop
 curses.wrapper(main)
