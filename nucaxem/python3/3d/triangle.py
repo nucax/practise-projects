@@ -46,11 +46,9 @@ def project(p, width, height, fov):
     sy = int(-y * factor + height/2)
     return (sx, sy, z)
 
-# ===============================
-# Cube Definition
-# ===============================
+# cube definition
 
-# 8 vertices of a cube
+
 cube_vertices = [
     (-1, -1, -1),
     ( 1, -1, -1),
@@ -81,9 +79,7 @@ cube_triangles = [
 light_dir = vec_normalize((0,0,-1))
 shade_chars = " .:-=+*#%@"
 
-# ===============================
-# Rasterizer
-# ===============================
+# rasterizer
 
 def draw_triangle(stdscr, pts, intensity, zbuffer):
     h = len(zbuffer)
@@ -123,10 +119,7 @@ def draw_triangle(stdscr, pts, intensity, zbuffer):
                     except:
                         pass
 
-# ===============================
-# Main Loop
-# ===============================
-
+# main loop
 def main(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(True)
