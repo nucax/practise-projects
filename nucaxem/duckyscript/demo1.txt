@@ -1,0 +1,27 @@
+REM Opens notepad and types a message
+DELAY 1000
+
+REM Open Run dialog
+GUI r
+DELAY 500
+
+REM Type notepad command
+STRING notepad
+DELAY 300
+
+REM Press Enter to open notepad
+ENTER
+DELAY 1500
+
+REM Type a message
+STRING Hello from Ducky Script!
+DELAY 200
+
+REM Press Enter for new line
+ENTER
+STRING This is an example script.
+DELAY 500
+
+REM Save the file
+CTRL s
+DELAY 1000
