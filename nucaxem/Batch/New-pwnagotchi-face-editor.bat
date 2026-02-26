@@ -1,11 +1,11 @@
 @echo off
 setlocal
 
-
+rem do not use this anymore. it will break your config file if you are using over 2.9.5.3 because of the new config format. 
 rem this is very outdated and just a quick hack to generate a config.toml with custom faces on Windows. It doesn't do any validation of the face strings, so be careful to enter something that will fit on the screen and not break the config format. It also doesn't preserve any existing config values, so it will overwrite an existing config.toml if run in the same folder.
 
 
-rem Prompt for all face entries (press Enter to use the example default shown)
+rem Prompt for all face entries. you can press enter to keep the default value. The default values are the original faces from pwnagotchi, but you can change them to whatever you like. Just make sure to keep the same number of characters for each face to avoid breaking the layout on the device.
 set /p LOOK_R="ui.faces.look_r (default: ( ⚆_⚆) ): "
 if "%LOOK_R%"=="" set LOOK_R=( ⚆_⚆)
 set /p LOOK_L="ui.faces.look_l (default: (☉_☉ ) ): "
@@ -57,8 +57,8 @@ if "%UPLOAD1%"=="" set UPLOAD1=(1__1)
 set /p UPLOAD2="ui.faces.upload2 (default: (0__1) ): "
 if "%UPLOAD2%"=="" set UPLOAD2=(0__1)
 
-rem Now call PowerShell to write a full config.toml using a here-string.
-rem The batch variables are available in PowerShell via $env:VAR_NAME
+rem Now call PowerShell to write a full config.toml using a here-string. The placeholders in the here-string will be replaced with the values from the batch variables. The resulting config.toml will be saved in the current folder. You can then copy it to your pwnagotchi device and replace the existing config.toml with it. Make sure to backup your original config.toml before replacing it, as this script will overwrite it without any confirmation.
+rem The batch variables are available in PowerShell via $env:VAR_NAME syntax. The placeholders in the here-string are in the format __VAR_NAME__ to avoid conflicts with the batch variable syntax. The script will replace all occurrences of the placeholders with the corresponding batch variable values before saving the config.toml file.
 
 powershell -NoProfile -Command ^
 "$content = @'
@@ -314,6 +314,8 @@ Set-Content -Path '.\config.toml' -Value $content -Encoding UTF8
 Write-Output 'config.toml written to the current folder.'
 " 
 
-echo Done. config.toml created in this folder.
+echo Done. config.toml created in this folder. You can now copy it to your pwnagotchi device and replace the existing config.toml with it. Make sure to backup your original config.toml before replacing it, as this script will overwrite it without any confirmation.
+echo If your pwnagotchi is running, you will need to restart it for the changes to take effect. You can do this by rebooting the device or by running 'sudo systemctl restart pwnagotchi' if you have SSH access.
+echo If you are using a version over 2.9.5.3 then this will break your pwnagotchi because of the new config format, so do not use this script if you are on a newer version. It is only intended as a quick hack to generate a config.toml with custom faces on Windows for older versions of pwnagotchi. For newer versions, you will need to manually edit the config.toml file or use a different method to generate it.
 pause
 endlocal
