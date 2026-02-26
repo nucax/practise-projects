@@ -1,6 +1,10 @@
 @echo off
 setlocal
 
+
+rem this is very outdated and just a quick hack to generate a config.toml with custom faces on Windows. It doesn't do any validation of the face strings, so be careful to enter something that will fit on the screen and not break the config format. It also doesn't preserve any existing config values, so it will overwrite an existing config.toml if run in the same folder.
+
+
 rem Prompt for all face entries (press Enter to use the example default shown)
 set /p LOOK_R="ui.faces.look_r (default: ( ⚆_⚆) ): "
 if "%LOOK_R%"=="" set LOOK_R=( ⚆_⚆)
