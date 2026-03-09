@@ -1,4 +1,6 @@
 # website links
+https://nucax.github.io/practise-projects/nucaxem/html/Personal/My%20website/index.html
+
 https://nucax.github.io/practise-projects/nucaxem/html/nucaxem-tools.html
 
 https://nucax.github.io/practise-projects/nucaxem/html/tf2_loadout_maker.html
