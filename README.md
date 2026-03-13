@@ -16,3 +16,5 @@ https://nucax.github.io/practise-projects/nucaxem/html/loadstring_creator.html
 https://nucax.github.io/practise-projects/nucaxem/html/pwa-test/index.html
 
 https://nucax.github.io/practise-projects/nucaxem/html/audio-stuff/index.html
+
+https://nucax.github.io/practise-projects/nucaxem/Games/breakout/index.html
