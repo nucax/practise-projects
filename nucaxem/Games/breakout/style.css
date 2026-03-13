@@ -3,6 +3,8 @@ body {
   font-family: Arial, sans-serif;
   background: #111;
   color: white;
+  margin: 0;
+  padding: 0;
 }
 
 canvas {
@@ -10,6 +12,8 @@ canvas {
   display: block;
   margin: 0 auto;
   border: 2px solid white;
+  max-width: 100%;
+  height: auto;
 }
 
 #scoreBoard {
