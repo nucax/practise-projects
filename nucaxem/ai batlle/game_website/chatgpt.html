@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌈 Rainbow Arcade</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+color:white;
+background:black;
+overflow:hidden;
+}
+
+header{
+padding:20px;
+font-size:28px;
+font-weight:bold;
+background:linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet);
+background-size:400%;
+animation:rainbow 10s linear infinite;
+}
+
+@keyframes rainbow{
+0%{background-position:0%}
+100%{background-position:400%}
+}
+
+button{
+padding:10px 20px;
+margin:6px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:linear-gradient(45deg,red,orange,yellow,green,blue,purple);
+color:white;
+}
+
+canvas{
+background:black;
+border:2px solid white;
+margin-top:10px;
+max-width:95vw;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>🌈 Rainbow Classic Arcade</header>
+
+<div>
+<button onclick="snake()">Snake</button>
+<button onclick="pong()">Pong</button>
+<button onclick="breakout()">Breakout</button>
+<button onclick="flappy()">Flappy</button>
+</div>
+
+<canvas id="game" width="400" height="400"></canvas>
+
+<script>
+
+const canvas = document.getElementById("game")
+const ctx = canvas.getContext("2d")
+let loop
+
+function clear(){
+cancelAnimationFrame(loop)
+ctx.clearRect(0,0,canvas.width,canvas.height)
+}
+
+/////////////////////
+// SNAKE
+/////////////////////
+
+function snake(){
+
+clear()
+
+let size=20
+let snake=[{x:10,y:10}]
+let dx=1
+let dy=0
+let food={x:15,y:15}
+
+document.onkeydown=e=>{
+if(e.key=="ArrowUp"){dx=0;dy=-1}
+if(e.key=="ArrowDown"){dx=0;dy=1}
+if(e.key=="ArrowLeft"){dx=-1;dy=0}
+if(e.key=="ArrowRight"){dx=1;dy=0}
+}
+
+function draw(){
+
+ctx.fillStyle="black"
+ctx.fillRect(0,0,400,400)
+
+let head={x:snake[0].x+dx,y:snake[0].y+dy}
+snake.unshift(head)
+
+if(head.x==food.x && head.y==food.y){
+food={
+x:Math.floor(Math.random()*20),
+y:Math.floor(Math.random()*20)
+}
+}else{
+snake.pop()
+}
+
+ctx.fillStyle="lime"
+snake.forEach(s=>{
+ctx.fillRect(s.x*size,s.y*size,size-2,size-2)
+})
+
+ctx.fillStyle="red"
+ctx.fillRect(food.x*size,food.y*size,size-2,size-2)
+
+loop=requestAnimationFrame(draw)
+
+}
+
+draw()
+}
+
+/////////////////////
+// PONG
+/////////////////////
+
+function pong(){
+
+clear()
+
+let paddleY=160
+let ball={x:200,y:200,vx:4,vy:3}
+
+canvas.onmousemove=e=>{
+const rect=canvas.getBoundingClientRect()
+paddleY=e.clientY-rect.top-40
+}
+
+function draw(){
+
+ctx.fillStyle="black"
+ctx.fillRect(0,0,400,400)
+
+ctx.fillStyle="white"
+ctx.fillRect(10,paddleY,10,80)
+
+ctx.fillRect(ball.x,ball.y,10,10)
+
+ball.x+=ball.vx
+ball.y+=ball.vy
+
+if(ball.y<0||ball.y>390) ball.vy*=-1
+
+if(ball.x<20 && ball.y>paddleY && ball.y<paddleY+80){
+ball.vx*=-1
+}
+
+loop=requestAnimationFrame(draw)
+
+}
+
+draw()
+}
+
+/////////////////////
+// BREAKOUT
+/////////////////////
+
+function breakout(){
+
+clear()
+
+let paddle=160
+let ball={x:200,y:200,vx:3,vy:-3}
+
+canvas.onmousemove=e=>{
+const rect=canvas.getBoundingClientRect()
+paddle=e.clientX-rect.left-40
+}
+
+function draw(){
+
+ctx.fillStyle="black"
+ctx.fillRect(0,0,400,400)
+
+ctx.fillStyle="cyan"
+ctx.fillRect(paddle,380,80,10)
+
+ctx.beginPath()
+ctx.arc(ball.x,ball.y,6,0,Math.PI*2)
+ctx.fillStyle="yellow"
+ctx.fill()
+
+ball.x+=ball.vx
+ball.y+=ball.vy
+
+if(ball.x<0||ball.x>400) ball.vx*=-1
+if(ball.y<0) ball.vy*=-1
+
+if(ball.y>370 && ball.x>paddle && ball.x<paddle+80){
+ball.vy*=-1
+}
+
+loop=requestAnimationFrame(draw)
+
+}
+
+draw()
+}
+
+/////////////////////
+// FLAPPY
+/////////////////////
+
+function flappy(){
+
+clear()
+
+let y=200
+let vel=0
+let gravity=0.5
+let pipeX=400
+let gap=120
+let pipeY=Math.random()*200
+
+document.onclick=()=>vel=-8
+
+function draw(){
+
+ctx.fillStyle="skyblue"
+ctx.fillRect(0,0,400,400)
+
+vel+=gravity
+y+=vel
+
+ctx.fillStyle="yellow"
+ctx.beginPath()
+ctx.arc(80,y,15,0,Math.PI*2)
+ctx.fill()
+
+ctx.fillStyle="green"
+
+ctx.fillRect(pipeX,0,40,pipeY)
+ctx.fillRect(pipeX,pipeY+gap,40,400)
+
+pipeX-=3
+
+if(pipeX<-40){
+pipeX=400
+pipeY=Math.random()*200
+}
+
+loop=requestAnimationFrame(draw)
+
+}
+
+draw()
+}
+
+</script>
+
+</body>
+</html>
