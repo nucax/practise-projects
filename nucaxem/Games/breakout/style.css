@@ -1,0 +1,22 @@
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+}
+
+canvas {
+  background: black;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid white;
+}
+
+#scoreBoard {
+  margin-top: 20px;
+}
+
+#leaderboardList {
+  list-style: none;
+  padding: 0;
+}
