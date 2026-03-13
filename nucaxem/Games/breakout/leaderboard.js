@@ -1,17 +1,16 @@
 const leaderboardList = document.getElementById("leaderboardList");
 
-// For demo purposes: using localStorage
-function saveScore(score) {
+function saveScore(score){
   let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
   let name = prompt("Enter your name for the leaderboard") || "Anonymous";
-  leaderboard.push({ name, score });
+  leaderboard.push({name, score});
   leaderboard.sort((a,b) => b.score - a.score);
   if(leaderboard.length > 10) leaderboard = leaderboard.slice(0,10);
   localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
   updateLeaderboard();
 }
 
-function updateLeaderboard() {
+function updateLeaderboard(){
   let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
   leaderboardList.innerHTML = "";
   leaderboard.forEach(entry => {
@@ -21,5 +20,5 @@ function updateLeaderboard() {
   });
 }
 
-// Load leaderboard on page load
+// Load on page load
 updateLeaderboard();
